@@ -34,7 +34,7 @@ usePageSeo({
     <PageIntro
       eyebrow="Getting started"
       title="Installation"
-      lead="Veloader is a plain Vue 3 package, currently private and unpublished. This guide describes consumer setup after a public release, not an available npm release today."
+      lead="Veloader is a plain Vue 3 package licensed under MIT. It is not yet published to npm; this guide describes the consumer workflow for its first verified public release."
     />
 
     <div class="docs__layout">
@@ -59,21 +59,19 @@ usePageSeo({
 
         <h2 id="install-the-package">Install the package</h2>
         <p>
-          <strong>Not available on npm yet.</strong> The repository package is
-          <code>private: true</code> and <code>UNLICENSED</code>. The owner must
-          decide the distribution license and publish a release before public
-          installation is available. Package name availability has not been
-          verified; confirm the released name before running this command.
+          <strong>Not published to npm yet.</strong> The library is licensed
+          under MIT, but package installation is available only after the
+          package name and first public release are verified on npm.
         </p>
         <p>
-          <strong>Only after a public release</strong>, install the package in
-          your Vue application using the confirmed name:
+          <strong>After the first public release is verified</strong>, install
+          the package in your Vue application:
         </p>
 
         <CodeBlock
           :code="installAfterRelease"
           language="bash"
-          label="Terminal · after release only"
+          label="Terminal · after public release"
         />
 
         <p>

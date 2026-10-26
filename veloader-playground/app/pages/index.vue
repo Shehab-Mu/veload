@@ -368,7 +368,8 @@ useHead({
           </h2>
         </div>
         <p class="section__lead">
-          Veloader is a private package, so install it from a local build.
+          The library is MIT licensed and will be installable from npm after
+          its first public release is verified.
         </p>
       </div>
 

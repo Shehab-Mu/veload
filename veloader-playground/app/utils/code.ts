@@ -401,8 +401,7 @@ export function skeletonTypes(
  * Installation instructions shared by the documentation pages.
  */
 export function installSnippet(): string {
-  return `# Only after a public release under the confirmed package name.
-# Veloader is currently private and unpublished.
+  return `# Use after the package name and first public release are verified on npm.
 npm install veloader`;
 }
 

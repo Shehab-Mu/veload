@@ -102,7 +102,7 @@ const props: VSkeletonSwitchProps = {
   },
 ];
 
-export const installAfterRelease = `# Only after a public release under the confirmed package name
+export const installAfterRelease = `# Use after the package name and first public release are verified on npm
 npm install veloader`;
 
 export const nuxtStylesheet = `// nuxt.config.ts

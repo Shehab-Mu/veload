@@ -27,9 +27,8 @@ const sections = [
           An accessible, dependency free loading toolkit for Vue 3.
         </p>
         <p class="site-footer__note">
-          The package is private and not published to npm. Install it from a
-          local build as described in the
-          <NuxtLink to="/docs/installation">installation guide</NuxtLink>.
+          The library is MIT licensed but is not yet published to npm. See the
+          installation guide for release status and consumer setup.
         </p>
       </div>
 
