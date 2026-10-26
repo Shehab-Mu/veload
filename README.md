@@ -20,11 +20,11 @@ See the linked READMEs for the project-specific development workflows.
 
 ## Separate release responsibilities
 
-- Only the library is intended for eventual npm publication. It currently
-  remains `private: true`, version `0.1.0`, and `UNLICENSED`. This repository
-  does not authorize publication or change those settings.
-- The playground is a separate private application, not the npm package.
-  Its eventual deployment is independent of a library release.
+- Only the library is intended for npm publication. It is licensed under MIT
+  and remains version `0.1.0`; it is not published until verified on npm.
+  The first release requires an explicit publish operation by the maintainer.
+- The playground is a separate application, not the npm package. It is
+  deployed independently at [veloader-playground.vercel.app](https://veloader-playground.vercel.app).
 - Generated library output and Nuxt output are not committed. Build the
   library before using its local package exports, following the project
   READMEs. No generated `dist` directory is expected in a fresh clone.

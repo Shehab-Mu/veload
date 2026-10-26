@@ -5,11 +5,12 @@ The documentation website and interactive playground for
 other than its Vue peer (`^3.5.2`).
 
 The site is a [Nuxt 4](https://nuxt.com) application with server rendering.
-It uses the library's public named exports and `veloader/style.css`, but its
+It uses the library's named exports and `veloader/style.css`, but its
 installation is local: `package.json` points to `file:../pcakage`. The library
-is currently private, `UNLICENSED`, and not published to npm. The consumer
-installation guide describes the public workflow **only after a release**;
-it does not imply that `npm install veloader` works today.
+is licensed under MIT but has not yet been published to npm. The deployed
+playground is a separate application, not evidence that an npm package release
+is available. Consumer installation works only after the first release is
+verified on the npm registry.
 
 ## Local contributor setup
 

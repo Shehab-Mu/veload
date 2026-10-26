@@ -20,8 +20,11 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "homepage": "https://veloader-playground.vercel.app",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "vue",
     "vue3",

@@ -13,19 +13,16 @@ Veloader provides:
 - `useDelayedLoading()` — delayed and minimum-duration indicator visibility
 - `useLoadingGroup()` — aggregation of independent loading states
 
-> **Status:** Veloader is private (`"private": true`), `UNLICENSED`, and has
-> **not** been published to npm. Public installation is not available today.
-> Package name availability on npm has not been verified. The owner must
-> select a distribution license and publish a release before public use.
+> **Release status:** Veloader is licensed under MIT and is being prepared
+> for its first public npm release. It is not yet published, so the install
+> command below becomes usable only after the release is verified on npm.
 
 ## Installation
 
-The following is the intended consumer workflow **only after a public
-release**, using the package name confirmed by the owner. Do not treat the
-command as an available npm release today:
+The workflow below is intended only after a public release is verified on
+npm; consumers can then install the published package with:
 
 ```bash
-# After release only; confirm the published package name first
 npm install veloader
 ```
 
@@ -635,18 +632,17 @@ assistive technology when `decorative` is used or no label is provided.
   browsers may not support it.
 - Progress values only reflect data supplied by the consumer; the library does
   not estimate backend progress.
-- The library is private and `UNLICENSED`. It must remain private until the
-  owner deliberately selects, adds, and documents a distribution license.
-- The library is not published and has no versioning or deprecation policy yet.
+- The package has not yet been published. Public installation and release
+  availability begin only after npm confirms the first release.
 
 
 ## Development
 
 ### Local maintainer workflow
 
-These steps are for authorized repository work while the package is private,
-not for future public consumers. Run in `Veloader/pcakage` (the directory is
-actually spelled `pcakage`):
+These steps are for authorized repository development before a public
+release, not for consumer installation. Run in `Veloader/pcakage` (the
+directory is actually spelled `pcakage`):
 
 ```bash
 npm install
