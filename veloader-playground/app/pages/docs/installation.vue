@@ -83,7 +83,7 @@ usePageSeo({
         <h2 id="register-the-stylesheet">Register the stylesheet</h2>
         <p>
           Component styles are extracted into a single
-          <code>veloader/style.css</code> file. Import it once, globally. The
+          <code>veload/style.css</code> file. Import it once, globally. The
           JavaScript entry point does not inject styles automatically, so
           without this import the components render without their intended
           appearance and animations.
@@ -95,7 +95,7 @@ usePageSeo({
         <h2 id="import-the-components">Import the components</h2>
         <p>
           Every component and composable is a named export from
-          <code>veloader</code>. The root entry provides ESM, CommonJS and
+          <code>veload</code>. The root entry provides ESM, CommonJS and
           <code>dist/index.d.ts</code> declarations. Use the public package
           entry rather than importing private source or <code>dist</code>
           paths. There is no default plugin, Nuxt module or global loading
@@ -149,7 +149,7 @@ usePageSeo({
 
         <h2 id="nuxt-ssr">Nuxt and server rendering</h2>
         <p>
-          Register <code>veloader/style.css</code> in the Nuxt
+          Register <code>veload/style.css</code> in the Nuxt
           <code>css</code> option above, then import components directly in
           page or component SFCs. The library can render on the server; no
           client-only plugin or <code>ClientOnly</code> wrapper is required.

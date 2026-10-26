@@ -1,4 +1,4 @@
-import type { SkeletonPattern } from "veloader";
+import type { SkeletonPattern } from "veload";
 
 /**
  * Metadata of a named skeleton preset.

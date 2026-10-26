@@ -10,7 +10,7 @@ import type {
   VPatternSkeletonProps,
   VProfileSkeletonProps,
   VTableSkeletonProps,
-} from "veloader";
+} from "veload";
 
 /**
  * Extracts the prop names of a component type.

@@ -23,7 +23,7 @@ The workflow below is intended only after a public release is verified on
 npm; consumers can then install the published package with:
 
 ```bash
-npm install veloader
+npm install veload
 ```
 
 Veloader's actual Vue peer range is **`^3.5.2`**: Vue 3.5.2 or a later
@@ -40,8 +40,8 @@ The public entry points are:
 
 | Import | Exported files |
 | --- | --- |
-| `veloader` | Named ESM exports (`dist/index.js`), CommonJS (`dist/index.cjs`), and declarations (`dist/index.d.ts`). |
-| `veloader/style.css` | The extracted component stylesheet (`dist/style.css`). |
+| `veload` | Named ESM exports (`dist/index.js`), CommonJS (`dist/index.cjs`), and declarations (`dist/index.d.ts`). |
+| `veload/style.css` | The extracted component stylesheet (`dist/style.css`). |
 
 Import from these public paths, not internal source or `dist` subpaths.
 
@@ -51,7 +51,7 @@ Component styles are extracted into `dist/style.css`. Import it once in your
 application entry point or root component:
 
 ```ts
-import "veloader/style.css";
+import "veload/style.css";
 ```
 
 The JavaScript entry does not inject styles automatically. Without this import
@@ -69,8 +69,8 @@ payload sizes change as the collection grows.
 ```vue
 <script setup lang="ts">
 import { ref } from "vue";
-import { VLoading, useLoading } from "veloader";
-import "veloader/style.css";
+import { VLoading, useLoading } from "veload";
+import "veload/style.css";
 
 const { isLoading, execute } = useLoading();
 const message = ref<string | null>(null);
@@ -110,8 +110,8 @@ Vue's global registration instead, register individual exports in `main.ts`:
 
 ```ts
 import { createApp } from "vue";
-import { VSpinner } from "veloader";
-import "veloader/style.css";
+import { VSpinner } from "veload";
+import "veload/style.css";
 import App from "./App.vue";
 
 const app = createApp(App);
@@ -131,7 +131,7 @@ Register the stylesheet once through Nuxt's global CSS option:
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ["veloader/style.css"],
+  css: ["veload/style.css"],
 });
 ```
 
@@ -142,7 +142,7 @@ the server payload during hydration:
 
 ```vue
 <script setup lang="ts">
-import { VLoading } from "veloader";
+import { VLoading } from "veload";
 
 const { data: message, status, error, refresh } =
   await useFetch<string>("/api/message");
@@ -305,7 +305,7 @@ A native `<button>` with a loading state.
 
 ```vue
 <script setup lang="ts">
-import { VLoadingButton, useLoading } from "veloader";
+import { VLoadingButton, useLoading } from "veload";
 
 const { isLoading, execute } = useLoading();
 
@@ -348,7 +348,7 @@ handler through native listeners so errors propagate to your own code.
 Tracks concurrent asynchronous operations for one loading state.
 
 ```ts
-import { useLoading } from "veloader";
+import { useLoading } from "veload";
 
 const { isLoading, pendingCount, execute } = useLoading();
 
@@ -374,7 +374,7 @@ pending operations still decrement their own count when they finish.
 Prevents loading-indicator flicker for fast operations.
 
 ```ts
-import { useDelayedLoading } from "veloader";
+import { useDelayedLoading } from "veload";
 
 const { isLoading, pendingCount, execute } = useDelayedLoading({
   delay: 200,
@@ -409,7 +409,7 @@ Behavior:
 Aggregates independent loading sources without owning them.
 
 ```ts
-import { useLoading, useLoadingGroup } from "veloader";
+import { useLoading, useLoadingGroup } from "veload";
 
 const products = useLoading();
 const categories = useLoading();
@@ -526,7 +526,7 @@ import type {
   VProgressProps,
   VSkeletonProps,
   VSpinnerProps,
-} from "veloader";
+} from "veload";
 ```
 
 Use `vue-tsc` (or `nuxt typecheck` in a Nuxt app) to check SFC templates in
@@ -572,8 +572,8 @@ accepts `value` from `0` to `100`. Import a named loader and use it directly:
 
 ```vue
 <script setup lang="ts">
-import { VOrbitDotsLoader } from "veloader";
-import "veloader/style.css";
+import { VOrbitDotsLoader } from "veload";
+import "veload/style.css";
 </script>
 
 <template>

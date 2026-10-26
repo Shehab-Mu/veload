@@ -5,7 +5,7 @@ The documentation website and interactive playground for
 other than its Vue peer (`^3.5.2`).
 
 The site is a [Nuxt 4](https://nuxt.com) application with server rendering.
-It uses the library's named exports and `veloader/style.css`, but its
+It uses the library's named exports and `veload/style.css`, but its
 installation is local: `package.json` points to `file:../pcakage`. The library
 is licensed under MIT but has not yet been published to npm. The deployed
 playground is a separate application, not evidence that an npm package release

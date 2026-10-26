@@ -1,5 +1,5 @@
 import type { Component } from "vue";
-import { VLoader, VPatternSkeleton } from "veloader";
+import { VLoader, VPatternSkeleton } from "veload";
 import { readRuntimeProps } from "./props";
 
 /**

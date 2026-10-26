@@ -204,8 +204,8 @@ export function loaderSfc(
   defaults: Record<string, unknown>,
 ): string {
   return `<script setup lang="ts">
-import { ${entry.name} } from "veloader";
-import "veloader/style.css";
+import { ${entry.name} } from "veload";
+import "veload/style.css";
 </script>
 
 <template>
@@ -241,8 +241,8 @@ export function loaderComposition(
 
   return `<script setup lang="ts">
 import { ref } from "vue";
-import { ${entry.name} } from "veloader";
-import "veloader/style.css";
+import { ${entry.name} } from "veload";
+import "veload/style.css";
 
 ${refs}
 </script>
@@ -264,7 +264,7 @@ export function loaderTypes(
     : "NamedLoaderProps";
 
   const lines: string[] = [
-    `import { ${entry.name}, type ${propsType} } from "veloader";`,
+    `import { ${entry.name}, type ${propsType} } from "veload";`,
     "",
     `// ${entry.name} accepts the shared ${propsType} type.`,
     `const props: ${propsType} = {`,
@@ -327,8 +327,8 @@ export function skeletonSfc(
   defaults: Record<string, unknown>,
 ): string {
   return `<script setup lang="ts">
-import { ${preset.name} } from "veloader";
-import "veloader/style.css";
+import { ${preset.name} } from "veload";
+import "veload/style.css";
 </script>
 
 <template>
@@ -364,8 +364,8 @@ export function skeletonComposition(
 
   return `<script setup lang="ts">
 import { ref } from "vue";
-import { ${preset.name} } from "veloader";
-import "veloader/style.css";
+import { ${preset.name} } from "veload";
+import "veload/style.css";
 
 ${refs}
 </script>
@@ -387,7 +387,7 @@ export function skeletonTypes(
     `  ${binding.name}: ${JSON.stringify(binding.value)},`,
   );
   return [
-    `import { ${preset.name}, type ${propsType} } from "veloader";`,
+    `import { ${preset.name}, type ${propsType} } from "veload";`,
     "",
     `const props: ${propsType} = {`,
     ...properties,
@@ -402,7 +402,7 @@ export function skeletonTypes(
  */
 export function installSnippet(): string {
   return `# Use after the package name and first public release are verified on npm.
-npm install veloader`;
+npm install veload`;
 }
 
 /**
@@ -411,12 +411,12 @@ npm install veloader`;
 export function stylesheetSnippet(): string {
   return `// Nuxt — nuxt.config.ts
 export default defineNuxtConfig({
-  css: ["veloader/style.css"],
+  css: ["veload/style.css"],
 });
 
 // Vite — main.ts
-import "veloader/style.css";
+import "veload/style.css";
 
 // Vue CLI / plain webpack — main.ts
-import "veloader/style.css";`;
+import "veload/style.css";`;
 }

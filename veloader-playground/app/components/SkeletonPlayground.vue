@@ -23,7 +23,7 @@ import type { CodeTab } from "~/types/code";
 import CodeTabs from "./CodeTabs.vue";
 import PropTable from "./PropTable.vue";
 import ToggleControl from "./ToggleControl.vue";
-import { VPatternSkeleton } from "veloader";
+import { VPatternSkeleton } from "veload";
 
 const props = defineProps<{
   entry: SkeletonPresetMeta;

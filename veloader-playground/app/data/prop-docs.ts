@@ -9,7 +9,7 @@ import {
   VSkeletonGroup,
   VSkeletonSwitch,
   VSpinner,
-} from "veloader";
+} from "veload";
 import { loaderVariants, skeletonPatterns } from "./catalog";
 import { formatDefaultValue, readRuntimeProps } from "../utils/props";
 

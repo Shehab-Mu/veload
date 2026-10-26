@@ -8,7 +8,7 @@ import {
   VSkeletonLoader,
   VSpinDotsLoader,
   VSpinner,
-} from "veloader";
+} from "veload";
 import { featuredLoaders, featuredSkeletonPresets, loaders } from "~/data/catalog";
 import { installSnippet } from "~/utils/code";
 import CodeBlock from "~/components/CodeBlock.vue";

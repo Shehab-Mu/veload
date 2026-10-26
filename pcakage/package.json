@@ -1,5 +1,5 @@
 {
-  "name": "veloader",
+  "name": "veload",
   "version": "0.1.0",
   "description": "A lightweight and customizable loading toolkit for Vue 3.",
   "type": "module",

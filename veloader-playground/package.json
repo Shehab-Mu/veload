@@ -21,7 +21,7 @@
     "check:og-image": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
-    "veloader": "file:../pcakage",
+    "veload": "file:../pcakage",
     "vue": "^3.5.42",
     "vue-router": "^5.4.0"
   },

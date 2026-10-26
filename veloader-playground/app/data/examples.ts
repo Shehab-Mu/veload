@@ -13,8 +13,8 @@ export const skeletonPrimitiveTabs: CodeTab[] = [
     label: "Vue",
     language: "vue",
     code: `<script setup lang="ts">
-import { VSkeleton } from "veloader";
-import "veloader/style.css";
+import { VSkeleton } from "veload";
+import "veload/style.css";
 </script>
 
 <template>
@@ -32,7 +32,7 @@ import "veloader/style.css";
     id: "typescript",
     label: "TypeScript",
     language: "ts",
-    code: `import { VSkeleton, type VSkeletonProps } from "veloader";
+    code: `import { VSkeleton, type VSkeletonProps } from "veload";
 
 const props: VSkeletonProps = {
   variant: "rect",
@@ -48,8 +48,8 @@ export const skeletonPatternTabs: CodeTab[] = [
     label: "Vue",
     language: "vue",
     code: `<script setup lang="ts">
-import { VPatternSkeleton } from "veloader";
-import "veloader/style.css";
+import { VPatternSkeleton } from "veload";
+import "veload/style.css";
 </script>
 
 <template>
@@ -60,7 +60,7 @@ import "veloader/style.css";
     id: "typescript",
     label: "TypeScript",
     language: "ts",
-    code: `import { VPatternSkeleton, type VPatternSkeletonProps } from "veloader";
+    code: `import { VPatternSkeleton, type VPatternSkeletonProps } from "veload";
 
 const props: VPatternSkeletonProps = {
   pattern: "article",
@@ -77,8 +77,8 @@ export const skeletonSwitchTabs: CodeTab[] = [
     language: "vue",
     code: `<script setup lang="ts">
 import { ref } from "vue";
-import { VSkeletonSwitch } from "veloader";
-import "veloader/style.css";
+import { VSkeletonSwitch } from "veload";
+import "veload/style.css";
 
 const loading = ref(true);
 </script>
@@ -93,7 +93,7 @@ const loading = ref(true);
     id: "typescript",
     label: "TypeScript",
     language: "ts",
-    code: `import { VSkeletonSwitch, type VSkeletonSwitchProps } from "veloader";
+    code: `import { VSkeletonSwitch, type VSkeletonSwitchProps } from "veload";
 
 const props: VSkeletonSwitchProps = {
   loading: true,
@@ -103,24 +103,24 @@ const props: VSkeletonSwitchProps = {
 ];
 
 export const installAfterRelease = `# Use after the package name and first public release are verified on npm
-npm install veloader`;
+npm install veload`;
 
 export const nuxtStylesheet = `// nuxt.config.ts
 export default defineNuxtConfig({
-  css: ["veloader/style.css"],
+  css: ["veload/style.css"],
 });`;
 
 export const viteStylesheet = `// main.ts
 import { createApp } from "vue";
-import "veloader/style.css";
+import "veload/style.css";
 import App from "./App.vue";
 
 createApp(App).mount("#app");`;
 
 export const globalRegistration = `// main.ts (optional, instead of importing in each component)
 import { createApp } from "vue";
-import { VSpinner } from "veloader";
-import "veloader/style.css";
+import { VSpinner } from "veload";
+import "veload/style.css";
 import App from "./App.vue";
 
 const app = createApp(App);
@@ -138,12 +138,12 @@ export const namedImports = `import {
   useDelayedLoading,
   useLoading,
   useLoadingGroup,
-} from "veloader";`;
+} from "veload";`;
 
 export const firstUse = `<script setup lang="ts">
 import { ref } from "vue";
-import { VLoading, useLoading } from "veloader";
-import "veloader/style.css";
+import { VLoading, useLoading } from "veload";
+import "veload/style.css";
 
 const { isLoading, execute } = useLoading();
 const message = ref<string | null>(null);
@@ -176,10 +176,10 @@ export const exportedTypes = `import type {
   VSkeletonProps,
   VSpinnerProps,
   UseLoadingReturn,
-} from "veloader";`;
+} from "veload";`;
 
 export const nuxtSsrUse = `<script setup lang="ts">
-import { VLoading } from "veloader";
+import { VLoading } from "veload";
 
 const { data: message, status, error, refresh } =
   await useFetch<string>("/api/message");
@@ -198,7 +198,7 @@ export const loaderTypes = `import {
   type LoaderVariant,
   type NamedLoaderProps,
   type VProgressRingLoaderProps,
-} from "veloader";`;
+} from "veload";`;
 
 export const decorativeExample = `<!-- Announced once, as a polite status -->
 <VLoader label="Loading projects" />

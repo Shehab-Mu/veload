@@ -3,7 +3,7 @@ import { defineNuxtConfig } from "nuxt/config";
 /**
  * The Veloader documentation site.
  *
- * The site renders on the server (Nuxt SSR) and consumes the `veloader`
+ * The site renders on the server (Nuxt SSR) and consumes the `veload`
  * package exactly like any other Vue 3 project would: components are imported
  * from the package entry point and the stylesheet is registered through the
  * Nuxt `css` option.
@@ -13,9 +13,9 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
 
-  // `veloader/style.css` contains the scoped styles of every component. The
+  // `veload/style.css` contains the scoped styles of every component. The
   // package ships one stylesheet, so it is registered once, globally.
-  css: ["veloader/style.css", "~/assets/css/main.css"],
+  css: ["veload/style.css", "~/assets/css/main.css"],
 
   app: {
     head: {

@@ -1,4 +1,4 @@
-import type { LoaderVariant } from "veloader";
+import type { LoaderVariant } from "veload";
 
 export type LoaderCategory = "Motion" | "Circular" | "Geometric" | "Utility";
 

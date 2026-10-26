@@ -47,7 +47,7 @@ import {
   VTableSkeleton,
   VTypingLoader,
   VWaveLoader,
-} from "veloader";
+} from "veload";
 import {
   findLoader,
   featuredLoaders as featuredLoaderList,

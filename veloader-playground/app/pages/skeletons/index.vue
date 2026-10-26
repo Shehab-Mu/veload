@@ -6,7 +6,7 @@ import {
   VSkeleton,
   VSkeletonGroup,
   VSkeletonSwitch,
-} from "veloader";
+} from "veload";
 import { skeletonPatterns, skeletonPresets, skeletonPatternPath } from "~/data/catalog";
 import {
   skeletonPatternTabs,

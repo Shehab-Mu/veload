@@ -11,7 +11,7 @@ import {
   VSkeletonGroup,
   VSkeletonSwitch,
   VSpinner,
-} from "veloader";
+} from "veload";
 import {
   buildGenericLoaderPropDocs,
   buildLoadingButtonPropDocs,
