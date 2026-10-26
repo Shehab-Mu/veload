@@ -381,11 +381,17 @@ useHead({
 <style scoped>
 .home {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
+}
+
+.home > * {
+  min-width: 0;
 }
 
 .hero {
   display: grid;
+  min-width: 0;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
@@ -679,7 +685,7 @@ useHead({
 
 @media (max-width: 60rem) {
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .feature-grid {
