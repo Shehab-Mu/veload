@@ -1,0 +1,35 @@
+{
+  "name": "veloader-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "npm --prefix ../pcakage run build",
+    "dev": "nuxt dev",
+    "prebuild": "npm --prefix ../pcakage run build",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "check:a11y": "node scripts/audit.mjs",
+    "check:interactions": "node scripts/interaction-check.mjs",
+    "check:og-image": "node scripts/generate-og-image.mjs"
+  },
+  "dependencies": {
+    "veloader": "file:../pcakage",
+    "vue": "^3.5.42",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@nuxt/test-utils": "^4.3.4",
+    "@types/node": "^24.13.3",
+    "@vue/test-utils": "^2.5.1",
+    "happy-dom": "^21.0.3",
+    "nuxt": "^4.6.2",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.5",
+    "vue-tsc": "^3.3.11"
+  }
+}

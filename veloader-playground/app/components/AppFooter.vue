@@ -1,0 +1,133 @@
+<script setup lang="ts">
+const sections = [
+  {
+    title: "Components",
+    links: [
+      { label: "All loaders", to: "/loaders" },
+      { label: "All skeletons", to: "/skeletons" },
+      { label: "API reference", to: "/docs/api" },
+    ],
+  },
+  {
+    title: "Guides",
+    links: [
+      { label: "Installation", to: "/docs/installation" },
+      { label: "Accessibility", to: "/docs/accessibility" },
+    ],
+  },
+];
+</script>
+
+<template>
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <p class="site-footer__name">Veloader</p>
+        <p class="site-footer__tagline">
+          An accessible, dependency free loading toolkit for Vue 3.
+        </p>
+        <p class="site-footer__note">
+          The package is private and not published to npm. Install it from a
+          local build as described in the
+          <NuxtLink to="/docs/installation">installation guide</NuxtLink>.
+        </p>
+      </div>
+
+      <nav
+        v-for="section in sections"
+        :key="section.title"
+        class="site-footer__section"
+        :aria-label="section.title"
+      >
+        <p class="site-footer__title">{{ section.title }}</p>
+        <ul class="site-footer__list">
+          <li v-for="link in section.links" :key="link.to">
+            <NuxtLink class="site-footer__link" :to="link.to">
+              {{ link.label }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="container site-footer__bottom">
+      <p>Written in TypeScript, rendered with Vue 3 and Nuxt.</p>
+    </div>
+  </footer>
+</template>
+
+<style scoped>
+.site-footer {
+  margin-top: 5rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface-muted);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  padding-block: 3rem 2rem;
+}
+
+.site-footer__name {
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.site-footer__tagline {
+  max-width: 26rem;
+  margin-top: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.site-footer__note {
+  max-width: 30rem;
+  margin-top: 1rem;
+  color: var(--text-subtle);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.site-footer__title {
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer__list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.site-footer__link {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
+.site-footer__bottom {
+  padding-block: 1.25rem 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-subtle);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 48rem) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>

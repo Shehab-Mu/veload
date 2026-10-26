@@ -1,0 +1,235 @@
+import type { CodeTab } from "~/types/code";
+
+/**
+ * Static code examples used by the documentation pages.
+ *
+ * They live outside the single file components so the Vue templates stay
+ * readable and the examples can be reused and tested.
+ */
+
+export const skeletonPrimitiveTabs: CodeTab[] = [
+  {
+    id: "vue",
+    label: "Vue",
+    language: "vue",
+    code: `<script setup lang="ts">
+import { VSkeleton } from "veloader";
+import "veloader/style.css";
+</script>
+
+<template>
+  <!-- A single line of text -->
+  <VSkeleton />
+
+  <!-- A card sized rectangle -->
+  <VSkeleton variant="rect" width="100%" height="12rem" />
+
+  <!-- An avatar -->
+  <VSkeleton variant="circle" :width="48" label="Loading avatar" />
+</template>`,
+  },
+  {
+    id: "typescript",
+    label: "TypeScript",
+    language: "ts",
+    code: `import { VSkeleton, type VSkeletonProps } from "veloader";
+
+const props: VSkeletonProps = {
+  variant: "rect",
+  width: "100%",
+  height: "12rem",
+};`,
+  },
+];
+
+export const skeletonPatternTabs: CodeTab[] = [
+  {
+    id: "vue",
+    label: "Vue",
+    language: "vue",
+    code: `<script setup lang="ts">
+import { VPatternSkeleton } from "veloader";
+import "veloader/style.css";
+</script>
+
+<template>
+  <VPatternSkeleton pattern="article" :rows="4" label="Loading article" />
+</template>`,
+  },
+  {
+    id: "typescript",
+    label: "TypeScript",
+    language: "ts",
+    code: `import { VPatternSkeleton, type VPatternSkeletonProps } from "veloader";
+
+const props: VPatternSkeletonProps = {
+  pattern: "article",
+  rows: 4,
+  label: "Loading article",
+};`,
+  },
+];
+
+export const skeletonSwitchTabs: CodeTab[] = [
+  {
+    id: "vue",
+    label: "Vue",
+    language: "vue",
+    code: `<script setup lang="ts">
+import { ref } from "vue";
+import { VSkeletonSwitch } from "veloader";
+import "veloader/style.css";
+
+const loading = ref(true);
+</script>
+
+<template>
+  <VSkeletonSwitch :loading="loading" pattern="profile" label="Loading profile">
+    <p>Profile content</p>
+  </VSkeletonSwitch>
+</template>`,
+  },
+  {
+    id: "typescript",
+    label: "TypeScript",
+    language: "ts",
+    code: `import { VSkeletonSwitch, type VSkeletonSwitchProps } from "veloader";
+
+const props: VSkeletonSwitchProps = {
+  loading: true,
+  pattern: "profile",
+};`,
+  },
+];
+
+export const installAfterRelease = `# Only after a public release under the confirmed package name
+npm install veloader`;
+
+export const nuxtStylesheet = `// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ["veloader/style.css"],
+});`;
+
+export const viteStylesheet = `// main.ts
+import { createApp } from "vue";
+import "veloader/style.css";
+import App from "./App.vue";
+
+createApp(App).mount("#app");`;
+
+export const globalRegistration = `// main.ts (optional, instead of importing in each component)
+import { createApp } from "vue";
+import { VSpinner } from "veloader";
+import "veloader/style.css";
+import App from "./App.vue";
+
+const app = createApp(App);
+app.component("VSpinner", VSpinner);
+app.mount("#app");`;
+
+export const namedImports = `import {
+  VLoading,
+  VLoadingButton,
+  VLoader,
+  VProgress,
+  VSkeleton,
+  VSkeletonSwitch,
+  VSpinner,
+  useDelayedLoading,
+  useLoading,
+  useLoadingGroup,
+} from "veloader";`;
+
+export const firstUse = `<script setup lang="ts">
+import { ref } from "vue";
+import { VLoading, useLoading } from "veloader";
+import "veloader/style.css";
+
+const { isLoading, execute } = useLoading();
+const message = ref<string | null>(null);
+
+async function load() {
+  try {
+    message.value = await execute(async () => {
+      const response = await fetch("/api/message");
+      if (!response.ok) throw new Error("Request failed");
+      return (await response.json()) as string;
+    });
+  } catch (error) {
+    message.value = error instanceof Error ? error.message : "Unknown error";
+  }
+}
+</script>
+
+<template>
+  <VLoading :loading="isLoading" label="Loading message">
+    <button type="button" @click="load">Reload</button>
+    <p v-if="message">{{ message }}</p>
+  </VLoading>
+</template>`;
+
+export const exportedTypes = `import type {
+  LoaderVariant,
+  NamedLoaderProps,
+  VLoadingProps,
+  VProgressProps,
+  VSkeletonProps,
+  VSpinnerProps,
+  UseLoadingReturn,
+} from "veloader";`;
+
+export const nuxtSsrUse = `<script setup lang="ts">
+import { VLoading } from "veloader";
+
+const { data: message, status, error, refresh } =
+  await useFetch<string>("/api/message");
+</script>
+
+<template>
+  <VLoading :loading="status === 'pending'" label="Loading message">
+    <button type="button" @click="refresh()">Reload</button>
+    <p v-if="error">Could not load the message.</p>
+    <p v-else-if="message">{{ message }}</p>
+  </VLoading>
+</template>`;
+
+export const loaderTypes = `import {
+  VLoader,
+  type LoaderVariant,
+  type NamedLoaderProps,
+  type VProgressRingLoaderProps,
+} from "veloader";`;
+
+export const decorativeExample = `<!-- Announced once, as a polite status -->
+<VLoader label="Loading projects" />
+
+<!-- Silent, because a parent region already announces the state -->
+<VLoader decorative />
+
+<!-- Silent, because the label is empty -->
+<VLoader label="" />`;
+
+export const skeletonLabelExample = `<!-- Decorative by default -->
+<VArticleSkeleton />
+
+<!-- Announced as a busy status region -->
+<VArticleSkeleton label="Loading article" />`;
+
+export const progressExample = `<!-- Determinate: the value is exposed to assistive technology -->
+<VProgress :value="42" label="Uploading files" value-text="42 of 84 files" />
+
+<!-- Indeterminate: no percentage is claimed -->
+<VProgress label="Preparing download" />`;
+
+export const loadingButtonExample = `<VLoadingButton :loading="isLoading" @click="save">
+  Save changes
+</VLoadingButton>`;
+
+export const reducedMotionExample = `/* The library honours the operating system preference.
+   You can align your own animations with the same query. */
+@media (prefers-reduced-motion: reduce) {
+  .my-fade {
+    animation: none;
+    transition: none;
+  }
+}`;
