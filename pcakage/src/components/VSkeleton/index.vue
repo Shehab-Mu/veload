@@ -122,11 +122,11 @@ const rootAttrs = computed(() =>
     transparent
   );
   transform: translateX(-100%);
-  animation: veloader-skeleton-shimmer
+  animation: veload-skeleton-shimmer
     var(--v-skeleton-duration, 1.4s) ease-in-out infinite;
 }
 
-@keyframes veloader-skeleton-shimmer {
+@keyframes veload-skeleton-shimmer {
   to {
     transform: translateX(100%);
   }

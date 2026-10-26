@@ -1,89 +1,211 @@
-# Veloader
+# Veload
 
-A Vue 3 + TypeScript loading toolkit and its Nuxt documentation playground,
-kept together in one repository with separate project directories.
+**Veload** is a Vue 3 loading toolkit for developers building responsive, accessible loading experiences. It provides loaders, skeleton placeholders, progress indicators, loading-state components, and composables for tracking asynchronous work.
 
-## Repository structure
+The product is named **Veload**; its published npm package is **`veload`** (`veload@0.1.0`).
 
-| Directory | Purpose |
-| --- | --- |
-| [`pcakage/`](./pcakage/README.md) | The Vue library, its public components, composables, types, and package build configuration. |
-| [`veloader-playground/`](./veloader-playground/README.md) | The Nuxt application that documents and demonstrates the actual library. |
+## Features
 
-`pcakage` is the existing library directory's spelling. It is intentionally
-preserved: the playground depends on `file:../pcakage`, and its development
-and build hooks refer to that path.
+- `VSpinner`, `VLoader`, and 36 individually importable animated loaders.
+- Skeleton primitives, reusable patterns, and named layout presets.
+- Determinate and indeterminate progress bars.
+- Loading overlays and a loading-aware native button.
+- Composables for concurrent, delayed, and grouped loading states.
+- TypeScript declarations included with the package.
+- Accessible status and progress semantics, with decorative options where appropriate.
+- Animations honor `prefers-reduced-motion`.
+- Vue components can render with Nuxt SSR; the ESM entry supports tree-shaking. The shared stylesheet includes styles for all components.
 
-There is no root npm package or npm-workspaces configuration. Each project
-has its own `package.json` and `package-lock.json`; retain both lockfiles.
-See the linked READMEs for the project-specific development workflows.
+## Installation
 
-## Separate release responsibilities
+```bash
+npm install veload
+```
 
-- Only the library is intended for npm publication. It is licensed under MIT
-  and remains version `0.1.0`; it is not published until verified on npm.
-  The first release requires an explicit publish operation by the maintainer.
-- The playground is a separate application, not the npm package. It is
-  deployed independently at [veloader-playground.vercel.app](https://veloader-playground.vercel.app).
-- Generated library output and Nuxt output are not committed. Build the
-  library before using its local package exports, following the project
-  READMEs. No generated `dist` directory is expected in a fresh clone.
-- No publishing, deployment, or automatic-merge workflow is configured here.
+Import the stylesheet once in your application entry point or root component. The package does not inject styles automatically:
 
-## Files intentionally kept local
+```ts
+import "veload/style.css";
+```
 
-At the owner's request, Git excludes test suites, test-only fixtures,
-identified test-only runner scripts, and generated test artifacts. These
-files are not deleted from the maintainer's workspace, but they are not
-part of a GitHub clone. Package scripts and project READMEs may describe
-local test commands that require those omitted files. The root ignore
-policy does not remove build, TypeScript, Vite, Nuxt, or Vitest configuration.
-Screenshot utilities and bundle-measurement tooling remain available.
+The `veload` entry provides ESM (`dist/index.js`), CommonJS (`dist/index.cjs`), and TypeScript declarations (`dist/index.d.ts`). The shared stylesheet is available through `veload/style.css` (`dist/style.css`).
 
-Markdown files are excluded except README documents. The root README and
-both project READMEs remain included. Dependency directories, generated
-output, logs, local environment files, and private key material are also
-excluded. `.env.example`, `.env.sample`, and `.env.template` may be committed
-only when they contain placeholders or empty values, never credentials.
-The existing playground example has an empty public-origin setting.
+## Quick start
 
-Ignoring a file does not erase it from existing commits. Review the staged
-file list and scan for credentials before every upload. Keep secrets out of
-source code, README examples, package-registry configuration, and URLs.
+This Vue 3 + TypeScript single-file component demonstrates an async operation with a loading overlay:
 
-## GitHub access and branch protection
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { VLoading, useLoading } from "veload";
+import "veload/style.css";
 
-Keep the repository private until the owner explicitly approves a visibility
-change. Do not grant collaborators, teams, applications, or automation write
-access without the owner's authorization. A pull request proposes changes;
-it does not grant its author permission to merge them.
+const { isLoading, execute } = useLoading();
+const message = ref<string | null>(null);
 
-Once the GitHub repository exists, configure and verify the settings the
-account's plan supports:
+async function load() {
+  try {
+    const response = await execute(() => fetch("/api/message"));
+    if (!response.ok) throw new Error("Request failed");
+    message.value = (await response.json()) as string;
+  } catch (error) {
+    message.value = error instanceof Error ? error.message : "Unknown error";
+  }
+}
+</script>
 
-1. Under **Settings → Collaborators** (or **Collaborators and teams**), retain
-   owner-only write access unless the owner intentionally grants access.
-2. Under **Settings → Rules → Rulesets**, create an active branch ruleset
-   targeting `main`, or use **Settings → Branches** for classic protection.
-   Require a pull request, block force pushes, and restrict branch deletion.
-   Review bypass permissions so other users or apps cannot bypass the rule.
-3. For a solo maintainer, require a pull request with **zero required
-   approvals** unless a separate trusted reviewer is available. GitHub does
-   not let an author approve their own pull request; requiring one approval
-   can block the owner's normal merge workflow. Do not describe zero-review
-   protection as independent review enforcement.
-4. Under **Settings → General → Pull Requests**, leave **Allow auto-merge**
-   disabled. Do not configure workflows to merge external pull requests.
-5. Under **Settings → Actions → General → Workflow permissions**, use the
-   read-only default and leave **Allow GitHub Actions to create and approve
-   pull requests** disabled. Future workflows should declare only the
-   permissions their individual jobs need.
+<template>
+  <VLoading :loading="isLoading" label="Loading message">
+    <button type="button" @click="load">Reload</button>
+    <p v-if="message">{{ message }}</p>
+  </VLoading>
+</template>
+```
 
-Private-repository branch protection and rulesets depend on GitHub's current
-account plan. If GitHub requires an upgrade, keep the repository private and
-owner-only; do not switch visibility or claim the unavailable rules are
-being enforced. Owner-only access prevents others from writing, but it is
-not a substitute for an enforced rule against the owner's own force pushes.
+The `/api/message` endpoint belongs to your application. In `<script setup>`, imported components are available in the template without global registration.
 
-This README records the intended policy. It is not evidence that remote
-settings have been applied; inspect GitHub's actual settings after setup.
+## Usage examples
+
+### Spinner
+
+```vue
+<VSpinner :size="40" color="#2563eb" label="Loading products" />
+```
+
+### Skeleton
+
+```vue
+<VSkeleton variant="rect" width="100%" height="8rem" />
+<VCardSkeleton />
+```
+
+### Progress
+
+```vue
+<VProgress :value="42" label="Uploading files" value-text="42%" />
+<VProgress label="Preparing download" />
+```
+
+Omit `value` for indeterminate progress.
+
+### Loading button
+
+```vue
+<VLoadingButton :loading="isSaving" type="submit">
+  Save changes
+</VLoadingButton>
+```
+
+### Delayed and grouped loading states
+
+```ts
+import { useDelayedLoading, useLoading, useLoadingGroup } from "veload";
+
+const search = useDelayedLoading({ delay: 200, minVisibleDuration: 300 });
+const products = useLoading();
+const categories = useLoading();
+const catalogLoading = useLoadingGroup([
+  products.isLoading,
+  categories.isLoading,
+]);
+
+await search.execute(() => fetchResults());
+```
+
+`useLoading()` tracks overlapping async operations; `useDelayedLoading()` delays indicator visibility to reduce flicker; `useLoadingGroup()` derives a combined state from existing sources. See the [public exports](#components-and-loaders) and the [playground API guide](https://veload-playground.vercel.app/docs/api) for more examples and prop details.
+
+## Components and loaders
+
+All entries below are named exports from `veload`. Import components directly; the package does not provide a default plugin.
+
+**Loading and progress:** `VSpinner`, `VProgress`, `VLoading`, `VLoadingButton`.
+
+**Loader collection:** `VLoader` (select a treatment with its `variant` prop), plus these individually exported loaders:
+
+- **Motion:** `VBarsLoader`, `VBounceLoader`, `VDotsLoader`, `VDotSweepLoader`, `VEqualizerLoader`, `VSlidingBarsLoader`, `VSpinLoader`, `VSpinDotsLoader`, `VTypingLoader`, `VWaveLoader`.
+- **Circular:** `VBreathingLoader`, `VDualArcLoader`, `VGradientRingLoader`, `VOrbitDotsLoader`, `VOrbitLoader`, `VProgressRingLoader`, `VPulseLoader`, `VRingLoader`, `VRippleLoader`, `VRotateLoader`, `VSignalLoader`, `VSnakeLoader`.
+- **Geometric:** `VBlobLoader`, `VCardFlipLoader`, `VElementLoader`, `VFlowLoader`, `VGridLoader`, `VHashtagLoader`, `VHeatmapLoader`, `VLiquidLoader`, `VLogoSpinLoader`, `VMorphLoader`, `VPlaneLoader`, `VSquaresLoader`, `VStairLoader`.
+- **Utility:** `VFallbackLoader`.
+
+**Skeletons:** `VSkeleton` and its alias `VSkeletonLoader`; `VPatternSkeleton`; layout helpers `VSkeletonGroup`, `VSkeletonSwitch`, and `VAutoSkeleton`; presets `VArticleSkeleton`, `VCardSkeleton`, `VDashboardSkeleton`, `VFeedSkeleton`, `VFormSkeleton`, `VListSkeleton`, `VMediaCardSkeleton`, `VProductCardSkeleton`, `VProfileSkeleton`, and `VTableSkeleton`.
+
+**Composables:** `useLoading()`, `useDelayedLoading(options?)`, and `useLoadingGroup(sources)`.
+
+## Accessibility and SSR
+
+Loading components expose status semantics and labels, progress bars expose progress values when determinate, and loading wrappers set `aria-busy`. Skeletons are hidden from assistive technology by default unless given a label; loaders support decorative use to avoid duplicate announcements. `VLoadingButton` uses a native disabled button while loading. Animations respect `prefers-reduced-motion`.
+
+The components can render in Nuxt SSR and do not require a client-only wrapper. For SSR applications, create composables inside component setup rather than at module scope, so mutable state is not shared across requests. Use the framework's server-aware data-fetching APIs for initial data; the loading composables track operations and do not replace data fetching or hydration.
+
+These behaviors are covered by tests, but the project does not claim formal WCAG conformance.
+
+## Playground
+
+[`veload-playground/`](./veload-playground/) is the Nuxt application used to explore and demonstrate the library. Its current production URL is [https://veload-playground.vercel.app](https://veload-playground.vercel.app).
+
+Run the playground commands from `veload-playground/`:
+
+```bash
+npm run dev
+npm run build
+npm run generate
+npm run preview
+npm run typecheck
+npm test
+npm run check:a11y
+npm run check:interactions
+npm run check:og-image
+```
+
+The `dev` and `build` scripts rebuild the sibling library first. The playground requires Node.js `^22.22.3` as declared in its `package.json`.
+
+### Public site origin
+
+The playground uses `NUXT_PUBLIC_SITE_URL` for canonical and social metadata, `robots.txt`, and the sitemap. Set it to the real public HTTP(S) origin when deploying. Reverse proxies should use the external public origin rather than an internal host or forwarded request host.
+
+For static generation, provide the value at **generation time**; generated page metadata does not automatically load a later runtime value. The built Node server does not automatically load a local development `.env` file either, so provide the variable in the server's runtime environment. No environment-template copy is needed for local development.
+
+## Development and validation
+
+The repository has no root package manifest; run library and playground commands from their respective directories. The following are the library scripts declared in `pcakage/package.json`:
+
+```bash
+cd pcakage
+npm run build       # Build ESM/CJS output and TypeScript declarations
+npm run build:types # Generate TypeScript declarations only
+npm test            # Run library tests with Vitest
+npm run typecheck   # Check library TypeScript and Vue components
+```
+
+To generate declarations separately, run `npm run build:types`. `npm run build` already runs that script after the Vite build. The playground's `npm run typecheck` and `npm test` are listed above.
+
+## Project structure
+
+```text
+.
+├── pcakage/             # Vue library source, build configuration, and package metadata
+│   ├── src/
+│   ├── scripts/
+│   └── package.json
+├── veload-playground/   # Nuxt playground, documentation pages, and app tests
+│   ├── app/
+│   ├── server/
+│   ├── shared/
+│   └── package.json
+└── README.md
+```
+
+`pcakage/` is the library directory's existing spelling and is intentionally preserved. The playground is a separate application and consumes the sibling library during repository development.
+
+## Compatibility
+
+Veload requires Vue **`^3.5.2`** as a peer dependency (Vue 3.5.2 or a compatible later Vue 3 release). The library bundles its JavaScript and TypeScript declarations; consumers import the shared stylesheet separately. The playground currently declares Node.js `^22.22.3`.
+
+## License
+
+Veload is distributed under the [MIT License](./pcakage/LICENSE). The npm package metadata also declares `MIT`.
+
+## Links
+
+- [Veload on npm](https://www.npmjs.com/package/veload)
+- [Playground](https://veload-playground.vercel.app)

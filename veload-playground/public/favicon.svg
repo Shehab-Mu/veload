@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Veload">
+  <defs>
+    <linearGradient id="veload-spinner" x1="10" y1="38" x2="38" y2="10" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6d3ff2" />
+      <stop offset="1" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="#17122b" />
+  <circle cx="24" cy="24" r="14" fill="none" stroke="#493c68" stroke-width="4" />
+  <path d="M24 10a14 14 0 1 1-14 14" fill="none" stroke="url(#veload-spinner)" stroke-linecap="round" stroke-width="4" />
+  <circle cx="24" cy="10" r="3.5" fill="#38bdf8" />
+</svg>

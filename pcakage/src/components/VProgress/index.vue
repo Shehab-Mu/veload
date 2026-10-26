@@ -122,11 +122,11 @@ const barStyle = computed(() => ({
 
 .v-progress--indeterminate .v-progress__bar {
   width: 40%;
-  animation: veloader-progress-indeterminate
+  animation: veload-progress-indeterminate
     var(--v-progress-duration, 1.4s) ease-in-out infinite;
 }
 
-@keyframes veloader-progress-indeterminate {
+@keyframes veload-progress-indeterminate {
   from {
     transform: translateX(-100%);
   }

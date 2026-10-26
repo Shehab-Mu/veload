@@ -89,7 +89,7 @@ try {
 
   console.log("Building a consumer that imports the whole package...");
   const all = build(
-    'import * as Veloader from "../src/index";\nexport { Veloader };\n',
+    'import * as Veload from "../src/index";\nexport { Veload };\n',
     "out-all",
   );
 

@@ -66,10 +66,10 @@ const rootAttrs = computed(() =>
   border: var(--v-spinner-border-width, 3px) solid
     var(--v-spinner-track-color, currentColor);
   border-radius: 50%;
-  animation: veloader-spin 0.75s linear infinite;
+  animation: veload-spin 0.75s linear infinite;
 }
 
-@keyframes veloader-spin {
+@keyframes veload-spin {
   to {
     transform: rotate(360deg);
   }

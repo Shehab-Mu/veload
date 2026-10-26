@@ -45,10 +45,10 @@ __fixtures__/
 
 # Project-specific test runners; build and screenshot utilities stay available
 /pcakage/scripts/consumer-check.mjs
-/veloader-playground/scripts/audit.mjs
-/veloader-playground/scripts/interaction-check.mjs
-/veloader-playground/scripts/workspace-check.mjs
-/veloader-playground/scripts/verify-production.mjs
+/veload-playground/scripts/audit.mjs
+/veload-playground/scripts/interaction-check.mjs
+/veload-playground/scripts/workspace-check.mjs
+/veload-playground/scripts/verify-production.mjs
 
 # Generated testing and browser-audit artifacts
 coverage/
@@ -99,4 +99,4 @@ Desktop.ini
 *.njsproj
 
 # Existing local shell artifact; deliberately retained on disk
-/veloader-playground/=0
+/veload-playground/=0

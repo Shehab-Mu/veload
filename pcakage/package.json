@@ -21,7 +21,7 @@
     "**/*.css"
   ],
   "license": "MIT",
-  "homepage": "https://veloader-playground.vercel.app",
+  "homepage": "https://veload-playground.vercel.app",
   "publishConfig": {
     "access": "public"
   },

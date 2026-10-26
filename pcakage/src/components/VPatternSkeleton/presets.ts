@@ -48,7 +48,7 @@ export const VTableSkeleton = /*#__PURE__*/ createPreset<VTableSkeletonProps>("V
  *
  * Unlike React Loadly's experimental DOM-inference API, this component never
  * executes or inspects slot content. It renders a supplied skeleton slot or a
- * selected Veloader pattern while loading, then renders the default slot.
+ * selected Veload pattern while loading, then renders the default slot.
  */
 export type VAutoSkeletonProps = VSkeletonSwitchProps;
 
