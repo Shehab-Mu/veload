@@ -102,8 +102,11 @@ const props: VSkeletonSwitchProps = {
   },
 ];
 
-export const installAfterRelease = `# Use after the package name and first public release are verified on npm
-npm install veload`;
+export const installationCommands: CodeTab[] = [
+  { id: "npm", label: "npm", language: "bash", code: "npm install veload" },
+  { id: "pnpm", label: "pnpm", language: "bash", code: "pnpm add veload" },
+  { id: "yarn", label: "Yarn", language: "bash", code: "yarn add veload" },
+];
 
 export const nuxtStylesheet = `// nuxt.config.ts
 export default defineNuxtConfig({

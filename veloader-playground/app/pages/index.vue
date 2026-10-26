@@ -18,7 +18,7 @@ import SkeletonCard from "~/components/SkeletonCard.vue";
 usePageSeo({
   title: "Accessible Vue 3 loaders, skeletons and progress components",
   description:
-    `Veloader is a dependency free loading toolkit for Vue 3: ${loaders.length} loader treatments, skeleton presets, progress bars and loading buttons with accessible defaults.`,
+    `Veloader is a dependency-free Vue 3 loading toolkit available on npm as veload@0.1.0: ${loaders.length} loaders, skeleton presets, progress bars and loading buttons with accessible defaults.`,
   path: "/",
 });
 
@@ -73,8 +73,11 @@ useHead({
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
         name: "Veloader",
+        alternateName: "veload",
         description:
-          "A dependency free loading toolkit for Vue 3 with loaders, skeletons and progress components.",
+          "A publicly available Vue 3 loading toolkit distributed on npm as veload@0.1.0, with loaders, skeletons and progress components.",
+        url: "https://www.npmjs.com/package/veload",
+        softwareVersion: "0.1.0",
         programmingLanguage: "Vue",
         runtimePlatform: "Web Browser",
         offers: {
@@ -103,11 +106,11 @@ useHead({
         </p>
 
         <div class="cluster hero__actions">
-          <NuxtLink class="button button--primary" to="/loaders">
-            Browse the loaders
+          <NuxtLink class="button button--primary" to="/docs/installation">
+            Install Veloader
           </NuxtLink>
-          <NuxtLink class="button button--ghost" to="/docs/installation">
-            Installation guide
+          <NuxtLink class="button button--ghost" to="/loaders">
+            Browse the loaders
           </NuxtLink>
         </div>
 
@@ -368,12 +371,22 @@ useHead({
           </h2>
         </div>
         <p class="section__lead">
-          The library is MIT licensed and will be installable from npm after
-          its first public release is verified.
+          Install the MIT-licensed Vue 3 toolkit from npm as
+          <code>veload@0.1.0</code>.
         </p>
       </div>
 
       <CodeBlock :code="code" language="bash" label="Terminal" />
+      <p class="section__footer">
+        <a
+          class="button button--ghost"
+          href="https://www.npmjs.com/package/veload"
+          target="_blank"
+          rel="noreferrer"
+        >
+          View veload on npm
+        </a>
+      </p>
     </section>
   </div>
 </template>

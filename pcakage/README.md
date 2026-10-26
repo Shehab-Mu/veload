@@ -13,18 +13,26 @@ Veloader provides:
 - `useDelayedLoading()` — delayed and minimum-duration indicator visibility
 - `useLoadingGroup()` — aggregation of independent loading states
 
-> **Release status:** Veloader is licensed under MIT and is being prepared
-> for its first public npm release. It is not yet published, so the install
-> command below becomes usable only after the release is verified on npm.
+Veloader is publicly available on npm as **`veload@0.1.0`**, under the MIT
+License.
 
 ## Installation
 
-The workflow below is intended only after a public release is verified on
-npm; consumers can then install the published package with:
+Install the published package with your preferred package manager:
 
 ```bash
 npm install veload
 ```
+
+```bash
+pnpm add veload
+```
+
+```bash
+yarn add veload
+```
+
+See the [published veload package on npm](https://www.npmjs.com/package/veload).
 
 Veloader's actual Vue peer range is **`^3.5.2`**: Vue 3.5.2 or a later
 compatible Vue 3 release, below Vue 4. Vue 3.0–3.4 are not supported by this
@@ -33,7 +41,7 @@ Vue application toolchain such as Vite with its Vue plugin or Nuxt; the
 library itself ships compiled JavaScript, not SFCs consumers need to build.
 
 No local library build, repository checkout, linking, or tarball is part of
-the future public consumer workflow. Authorized repository development is
+the consumer workflow. Authorized repository development is
 covered separately under [Local maintainer workflow](#local-maintainer-workflow).
 
 The public entry points are:
@@ -632,16 +640,13 @@ assistive technology when `decorative` is used or no label is provided.
   browsers may not support it.
 - Progress values only reflect data supplied by the consumer; the library does
   not estimate backend progress.
-- The package has not yet been published. Public installation and release
-  availability begin only after npm confirms the first release.
-
 
 ## Development
 
 ### Local maintainer workflow
 
-These steps are for authorized repository development before a public
-release, not for consumer installation. Run in `Veloader/pcakage` (the
+These steps are for package maintainers, not consumer installation. Run in
+`Veloader/pcakage` (the
 directory is actually spelled `pcakage`):
 
 ```bash

@@ -401,8 +401,7 @@ export function skeletonTypes(
  * Installation instructions shared by the documentation pages.
  */
 export function installSnippet(): string {
-  return `# Use after the package name and first public release are verified on npm.
-npm install veload`;
+  return "npm install veload";
 }
 
 /**

@@ -27,8 +27,14 @@ const sections = [
           An accessible, dependency free loading toolkit for Vue 3.
         </p>
         <p class="site-footer__note">
-          The library is MIT licensed but is not yet published to npm. See the
-          installation guide for release status and consumer setup.
+          Install the MIT-licensed
+          <a
+            class="site-footer__link"
+            href="https://www.npmjs.com/package/veload"
+            target="_blank"
+            rel="noreferrer"
+          >veload</a>
+          package or see the installation guide for Vue and Nuxt setup.
         </p>
       </div>
 

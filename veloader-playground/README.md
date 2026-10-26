@@ -5,12 +5,11 @@ The documentation website and interactive playground for
 other than its Vue peer (`^3.5.2`).
 
 The site is a [Nuxt 4](https://nuxt.com) application with server rendering.
-It uses the library's named exports and `veload/style.css`, but its
-installation is local: `package.json` points to `file:../pcakage`. The library
-is licensed under MIT but has not yet been published to npm. The deployed
-playground is a separate application, not evidence that an npm package release
-is available. Consumer installation works only after the first release is
-verified on the npm registry.
+The library is publicly available as [`veload@0.1.0`](https://www.npmjs.com/package/veload)
+under the MIT License. The playground uses the sibling library through
+`file:../pcakage` for monorepo development so its examples stay aligned with the
+current source; regular consumers should install the published `veload` package
+with npm, pnpm, or yarn. The deployed playground is a separate application.
 
 ## Local contributor setup
 
@@ -143,7 +142,7 @@ accessibility and deployment review.
 | `/loaders/[name]` | Preview, controls, implementation tabs and props for one loader. |
 | `/skeletons` | The primitive, eleven patterns, switching helpers and named presets. |
 | `/skeletons/[name]` | Live preview, controls, implementation tabs and props for each named preset, plus `/skeletons/lines` for the generic text pattern. |
-| `/docs/installation` | Release status, consumer setup, stylesheet, Vue, TypeScript and Nuxt SSR usage. |
+| `/docs/installation` | Published package installation, stylesheet, Vue, TypeScript and Nuxt SSR usage. |
 | `/docs/accessibility` | Roles, live regions, decorative mode and reduced motion. |
 | `/docs/api` | Prop, slot, type and CSS custom property reference. |
 

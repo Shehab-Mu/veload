@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import AppBreadcrumbs from "~/components/AppBreadcrumbs.vue";
 import CodeBlock from "~/components/CodeBlock.vue";
+import CodeTabs from "~/components/CodeTabs.vue";
 import PageIntro from "~/components/PageIntro.vue";
 import {
   exportedTypes,
   firstUse,
   globalRegistration,
-  installAfterRelease,
+  installationCommands,
   namedImports,
   nuxtSsrUse,
   nuxtStylesheet,
@@ -16,7 +17,7 @@ import {
 usePageSeo({
   title: "Installation",
   description:
-    "Veloader release status and post-release setup: Vue ^3.5.2, named exports, styles, TypeScript and server-rendered Nuxt usage.",
+    "Install Veloader's published veload@0.1.0 package. Vue ^3.5.2 setup, stylesheet imports, TypeScript examples and Nuxt SSR guidance.",
   path: "/docs/installation",
 });
 </script>
@@ -34,7 +35,7 @@ usePageSeo({
     <PageIntro
       eyebrow="Getting started"
       title="Installation"
-      lead="Veloader is a plain Vue 3 package licensed under MIT. It is not yet published to npm; this guide describes the consumer workflow for its first verified public release."
+      lead="Install Veloader from npm as veload@0.1.0, then import its Vue components and stylesheet in your application."
     />
 
     <div class="docs__layout">
@@ -59,25 +60,20 @@ usePageSeo({
 
         <h2 id="install-the-package">Install the package</h2>
         <p>
-          <strong>Not published to npm yet.</strong> The library is licensed
-          under MIT, but package installation is available only after the
-          package name and first public release are verified on npm.
+          Install the published MIT-licensed package using your preferred
+          package manager. The playground's local monorepo dependency is only
+          for maintaining this site; consumers do not need a repository clone,
+          local build or link step.
         </p>
-        <p>
-          <strong>After the first public release is verified</strong>, install
-          the package in your Vue application:
-        </p>
-
-        <CodeBlock
-          :code="installAfterRelease"
-          language="bash"
-          label="Terminal · after public release"
-        />
-
-        <p>
-          Repository contributors should follow the separate local workflow in
-          the playground README. Local build, linking and tarball commands are
-          not prerequisites for future public-package consumers.
+        <CodeTabs :tabs="installationCommands" label="Package manager" />
+        <p class="package-link">
+          <a
+            href="https://www.npmjs.com/package/veload"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View veload@0.1.0 on npm
+          </a>
         </p>
 
         <h2 id="register-the-stylesheet">Register the stylesheet</h2>
