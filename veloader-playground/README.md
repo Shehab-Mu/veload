@@ -13,8 +13,11 @@ it does not imply that `npm install veloader` works today.
 
 ## Local contributor setup
 
-Requirements: Node.js 20.19+ or 22.12+ and npm. Run these commands from the
-repository root (`Veloader`), which has no root package manifest:
+Requirements: Node.js **22.22.3 or later within Node 22** and npm. The
+playground's `engines.node` is `^22.22.3`, matching the Node 22 minimum of
+locked Nuxt 4.6.2. Node 20 and earlier Node 22 patch releases do not satisfy
+this toolchain. Run these commands from the repository root (`Veloader`),
+which has no root package manifest:
 
 ```bash
 npm --prefix pcakage install
@@ -29,6 +32,70 @@ The site's `predev` and `prebuild` scripts rebuild the library automatically;
 `generate`, `typecheck`, and `test` do not. This workflow is for authorized
 repository development, not installation instructions for public consumers.
 See the library README's development section for local tarball checks.
+
+The direct Vue Router dependency must stay compatible with Nuxt's router:
+Nuxt 4.6.2 requires `^5.4.0`, including its `vue-router/volar/sfc-route-blocks`
+export used by typechecking. A separate Router 4 installation at the app
+root shadows that export even when Nuxt has a nested Router 5 installation.
+
+## Vercel monorepo build
+
+Keep the Vercel project's **Root Directory** set to `veloader-playground`.
+The `vercel.json` in this directory selects the Nuxt framework and defines
+the install and build commands; it does not change the root directory or
+perform a deployment by itself.
+
+The install command runs from `veloader-playground`, in this order:
+
+```bash
+npm --prefix ../pcakage ci --include=dev
+npm --prefix ../pcakage run build
+npm ci --include=dev
+```
+
+Both projects have independent lockfiles and dependency directories. The
+`file:../pcakage` link does not install the library's own devDependencies,
+and `npm --prefix ../pcakage run build` does not install anything. The
+explicit library install supplies its declared Vite, Vue plugin, Vue,
+TypeScript, and `vue-tsc` without depending on the playground's transitive
+packages or globally available binaries. `--include=dev` is intentional:
+these tools, and Nuxt itself, are build-time devDependencies even for a
+production deployment.
+
+The library build produces its public ESM/CommonJS exports, stylesheet, and
+declarations before the playground installation runs `postinstall: nuxt
+prepare`. This ordering also avoids relying on cached `dist` output, which
+is not committed. Vercel then runs `npm run build`, preserving the existing
+`prebuild` hook and rebuilding the library before Nuxt. This second library
+build is intentional: ordinary local builds still use the same hook.
+
+Verify these Vercel project settings before a later deployment:
+
+- Enable **Include source files outside of the Root Directory in the Build
+  Step**, so the sibling `pcakage` source and lockfile are available.
+- Select Node **22.x** and confirm its actual patch version is **22.22.3 or
+  newer**. The package engine range selects the supported major, but cannot
+  make an older platform-provided Node patch compatible.
+- Use the install/build commands in `vercel.json`; do not replace the build
+  command with `nuxt build`, which would bypass npm's `prebuild` hook.
+- Leave **Output Directory** at the Nuxt framework default. Do not override
+  it to `dist`; Nitro's Vercel preset produces the Vercel build output.
+- Do not enable an install option that omits devDependencies or changes the
+  lockfile's local-package link into a different installation strategy.
+
+To check the same pipeline locally without deploying, use a separate clean
+checkout with the supported Node version and run from the repository root:
+
+```bash
+npm --prefix pcakage ci --include=dev
+npm --prefix pcakage run build
+npm --prefix veloader-playground ci --include=dev
+npm --prefix veloader-playground run build
+```
+
+These are verification instructions, not commands executed automatically
+outside the explicitly configured install/build lifecycle. No npm publishing
+or Vercel deployment command is part of this setup.
 
 ## Scripts
 
@@ -112,6 +179,30 @@ For the dashboard, `rows` counts data rows; one fixed header, statistics,
 and chart are separate. The gallery maps every pattern to an implemented
 detail page, including the generic Lines page, without changing named
 preset URLs.
+
+## Dependency security
+
+Run `npm audit --json` independently in `pcakage` and `veloader-playground`;
+include development dependencies because they execute during builds and tests.
+The current lockfile includes Happy DOM 21.0.4 and serialize-javascript 7.1.4,
+which address GHSA-834v-8h66-3h79 and GHSA-m5mm-p8h7-m29v respectively.
+
+An unresolved upstream advisory remains: **GHSA-86w9-cpqp-85rv** affects
+`node-forge <=1.4.0`, reached through
+`nuxt → @nuxt/nitro-server → nitropack → listhen → node-forge`.
+The advisory describes acceptance of forged RSA PKCS#1 v1.5 signatures with
+low-exponent keys. At review time, 1.4.0 is the latest published node-forge
+and the advisory lists no patched release. npm reports seven high-severity
+package findings from this single underlying advisory and its dependency
+chain. This is not a clean security audit.
+
+Do not apply npm's suggested Nuxt downgrade or an unverified override merely
+to clear the report. Monitor the advisory and upstream releases, then update
+and repeat clean installation, tests, typechecks and builds when a compatible
+fix exists. Until then, treat this as a build-tool dependency risk: use trusted
+build inputs and do not rely on the affected node-forge signature verifier.
+`glob@10.5.0` also remains deprecated through Nitro's archiver dependency;
+replacing it across a major boundary requires upstream compatibility review.
 
 ## Assets
 

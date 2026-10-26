@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nuxtjs",
+  "installCommand": "npm --prefix ../pcakage ci --include=dev && npm --prefix ../pcakage run build && npm ci --include=dev",
+  "buildCommand": "npm run build"
+}

@@ -660,7 +660,17 @@ npm pack --dry-run   # inspect package contents
 ```
 
 The test suite uses Vitest, Vue Test Utils, and jsdom. Timing tests use fake
-timers. The build externalizes Vue and emits:
+timers. `vitest.config.ts` contains the test options and reuses the Vue plugin
+from `vite.config.ts`; the production Vite config imports from `vite`, not
+`vitest/config`. Declaration generation uses `tsconfig.build.json`, which
+excludes the local test suites.
+
+Build tooling is declared in this library's own `devDependencies`. Install
+it here (for example, `npm ci --include=dev`) before running the build; an
+installation in the sibling playground is not a replacement. See the
+playground README for its Vercel install order and supported Node version.
+
+The build externalizes Vue and emits:
 
 - `dist/index.js` (ESM)
 - `dist/index.cjs` (CommonJS)

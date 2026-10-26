@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "^22.22.3"
+  },
   "scripts": {
     "predev": "npm --prefix ../pcakage run build",
     "dev": "nuxt dev",
@@ -20,13 +23,13 @@
   "dependencies": {
     "veloader": "file:../pcakage",
     "vue": "^3.5.42",
-    "vue-router": "^4.5.1"
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
     "@nuxt/test-utils": "^4.3.4",
     "@types/node": "^24.13.3",
     "@vue/test-utils": "^2.5.1",
-    "happy-dom": "^21.0.3",
+    "happy-dom": "^21.0.4",
     "nuxt": "^4.6.2",
     "typescript": "~6.0.2",
     "vitest": "^5.0.5",
