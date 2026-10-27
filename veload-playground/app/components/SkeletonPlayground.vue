@@ -210,38 +210,40 @@ function onHighlightColorPicker(event: Event): void {
         <h2 class="playground__controls-title">Controls</h2>
 
         <div class="playground__controls-grid">
-          <div v-if="supportedProps.includes('rows')" class="control">
-            <label for="skeleton-rows">
-              {{ entry.pattern === 'dashboard' || entry.pattern === 'table' ? 'Data rows' : 'Rows' }} <span>{{ state.rows }}</span>
-            </label>
-            <input
-              id="skeleton-rows"
-              v-model.number="state.rows"
-              :aria-describedby="entry.pattern === 'dashboard' || entry.pattern === 'table' ? 'skeleton-rows-hint' : undefined"
-              type="range"
-              min="1"
-              max="12"
-              step="1"
-              :disabled="!isReady"
-            />
-            <p v-if="entry.pattern === 'dashboard' || entry.pattern === 'table'" id="skeleton-rows-hint" class="control__hint">
-              {{ entry.pattern === 'dashboard' ? 'Data rows only. One fixed table header is always shown; statistics and chart are separate.' : 'Data rows only. The optional table header is separate.' }}
-            </p>
-          </div>
+          <div class="playground__dimensions control--wide">
+            <div v-if="supportedProps.includes('rows')" class="control">
+              <label for="skeleton-rows">
+                {{ entry.pattern === 'dashboard' || entry.pattern === 'table' ? 'Data rows' : 'Rows' }} <span>{{ state.rows }}</span>
+              </label>
+              <input
+                id="skeleton-rows"
+                v-model.number="state.rows"
+                :aria-describedby="entry.pattern === 'dashboard' || entry.pattern === 'table' ? 'skeleton-rows-hint' : undefined"
+                type="range"
+                min="1"
+                max="12"
+                step="1"
+                :disabled="!isReady"
+              />
+              <p v-if="entry.pattern === 'dashboard' || entry.pattern === 'table'" id="skeleton-rows-hint" class="control__hint">
+                {{ entry.pattern === 'dashboard' ? 'Data rows only. One fixed table header is always shown; statistics and chart are separate.' : 'Data rows only. The optional table header is separate.' }}
+              </p>
+            </div>
 
-          <div v-if="supportedProps.includes('columns')" class="control">
-            <label for="skeleton-columns">
-              Columns <span>{{ state.columns }}</span>
-            </label>
-            <input
-              id="skeleton-columns"
-              v-model.number="state.columns"
-              type="range"
-              min="1"
-              max="6"
-              step="1"
-              :disabled="!isReady"
-            />
+            <div v-if="supportedProps.includes('columns')" class="control">
+              <label for="skeleton-columns">
+                Columns <span>{{ state.columns }}</span>
+              </label>
+              <input
+                id="skeleton-columns"
+                v-model.number="state.columns"
+                type="range"
+                min="1"
+                max="6"
+                step="1"
+                :disabled="!isReady"
+              />
+            </div>
           </div>
 
           <div v-if="supportedProps.includes('avatarSize')" class="control">
@@ -546,6 +548,13 @@ function onHighlightColorPicker(event: Event): void {
   gap: 0.85rem 1.1rem;
 }
 
+.playground__dimensions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 1.1rem;
+  min-width: 0;
+}
+
 .control--wide {
   grid-column: 1 / -1;
 }
@@ -687,6 +696,10 @@ function onHighlightColorPicker(event: Event): void {
 
 @media (max-width: 62rem) {
   .playground__workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .playground__dimensions {
     grid-template-columns: minmax(0, 1fr);
   }
 

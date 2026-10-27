@@ -43,13 +43,7 @@ export const VProductCardSkeleton = /*#__PURE__*/ createPreset<VProductCardSkele
 export const VProfileSkeleton = /*#__PURE__*/ createPreset<VProfileSkeletonProps>("VProfileSkeleton", "profile");
 export const VTableSkeleton = /*#__PURE__*/ createPreset<VTableSkeletonProps>("VTableSkeleton", "table");
 
-/**
- * A safe content switcher for Vue skeleton states.
- *
- * Unlike React Loadly's experimental DOM-inference API, this component never
- * executes or inspects slot content. It renders a supplied skeleton slot or a
- * selected Veload pattern while loading, then renders the default slot.
- */
+
 export type VAutoSkeletonProps = VSkeletonSwitchProps;
 
 export const VAutoSkeleton = /*#__PURE__*/ defineComponent({

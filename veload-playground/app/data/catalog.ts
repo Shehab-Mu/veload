@@ -119,9 +119,7 @@ const loaderComponents: Record<string, Component> = {
   VWaveLoader,
 };
 
-/**
- * Resolves the component that renders a loader entry.
- */
+
 export function getLoaderComponent(name: string): Component {
   const component = loaderComponents[name];
 
@@ -146,9 +144,7 @@ const skeletonPresetComponents: Record<string, Component> = {
   VTableSkeleton,
 };
 
-/**
- * Resolves the component that renders a skeleton preset.
- */
+
 export function getSkeletonPresetComponent(name: string): Component {
   const component = skeletonPresetComponents[name];
 

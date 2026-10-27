@@ -1,11 +1,3 @@
-/*
- * Veload playground — design tokens and base styles.
- *
- * The palette is expressed as custom properties so light and dark themes
- * share the same layout rules. Dark mode follows the operating system
- * preference, which keeps the server rendered markup identical for every
- * visitor and avoids a flash of the wrong theme.
- */
 
 :root {
   color-scheme: light dark;
@@ -29,9 +21,7 @@
   --border-strong: #d5cfe6;
   --text: #191233;
   --text-muted: #655d7d;
-  /* Secondary text. Chosen so that it keeps a WCAG AA contrast of at least
-     4.5:1 against every surface it is used on in light mode:
-     --page-bg 4.82:1, --surface 5.23:1, --surface-muted 4.99:1. */
+
   --text-subtle: #716884;
   --accent: #6d3ff2;
   --accent-strong: #5625d6;
@@ -195,7 +185,7 @@ button {
   }
 }
 
-/* Layout helpers ------------------------------------------------------- */
+
 
 .container {
   width: 100%;
@@ -257,7 +247,7 @@ button {
   transform: translateY(0);
 }
 
-/* Shared primitives ---------------------------------------------------- */
+
 
 .eyebrow {
   display: inline-flex;

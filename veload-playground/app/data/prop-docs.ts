@@ -14,29 +14,29 @@ import { loaderVariants, skeletonPatterns } from "./catalog";
 import { formatDefaultValue, readRuntimeProps } from "../utils/props";
 
 export interface PropDoc {
-  /** Prop name. */
+
   name: string;
-  /** TypeScript type of the prop. */
+
   type: string;
-  /** Documented default value. */
+
   default: string;
-  /** Whether the prop is required. */
+
   required: boolean;
-  /** What the prop does. */
+
   description: string;
 }
 
 export interface SlotDoc {
-  /** Slot name. */
+
   name: string;
-  /** What the slot is used for. */
+
   description: string;
 }
 
 export interface PropDefinition {
   type: string;
   description: string;
-  /** Overrides the runtime default when the documentation is more precise. */
+
   default?: string;
 }
 
@@ -178,13 +178,7 @@ export const patternPropDefinitions: Record<string, PropDefinition> = {
   },
 };
 
-/**
- * Builds the prop table of a component from its runtime declaration.
- *
- * Only props that the component really declares are documented, and the
- * declared defaults are read from the package itself, so the table can never
- * drift away from the shipped behaviour.
- */
+
 export function buildPropDocs(
   component: Component,
   definitions: Record<string, PropDefinition>,
@@ -215,7 +209,7 @@ export function buildPropDocs(
     });
 }
 
-/** Props shared by every named loader. */
+
 export const namedLoaderPropOrder = [
   "color",
   "size",
@@ -225,7 +219,7 @@ export const namedLoaderPropOrder = [
   "decorative",
 ] as const;
 
-/** Props of the generic `VLoader` component. */
+
 export const loaderPropOrder = [
   "variant",
   "color",
@@ -271,15 +265,12 @@ export function buildGenericLoaderPropDocs(): PropDoc[] {
   );
 }
 
-/**
- * Defaults that the component applies internally and therefore does not
- * declare as a runtime default.
- */
+
 const skeletonDefaultOverrides: Record<string, string> = {
   avatarSize: "48",
 };
 
-/** Props of the `VPatternSkeleton` component. */
+
 export function buildPatternPropDocs(): PropDoc[] {
   return buildPropDocs(
     VPatternSkeleton,

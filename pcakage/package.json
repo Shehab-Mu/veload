@@ -1,7 +1,7 @@
 {
   "name": "veload",
-  "version": "0.1.0",
-  "description": "A lightweight and customizable loading toolkit for Vue 3.",
+  "version": "0.1.1",
+  "description": "Accessible Vue 3 loaders, skeletons, progress indicators, and loading-state composables.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -22,6 +22,13 @@
   ],
   "license": "MIT",
   "homepage": "https://veload-playground.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shehab-Mo/veload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shehab-Mo/veload/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -30,9 +37,16 @@
     "vue3",
     "loading",
     "spinner",
-    "loader"
+    "loader",
+    "skeleton",
+    "progress",
+    "accessibility",
+    "typescript",
+    "nuxt"
   ],
   "scripts": {
+    "prepack": "node scripts/package-readme.mjs prepare",
+    "postpack": "node scripts/package-readme.mjs cleanup",
     "build": "vite build && npm run build:types",
     "typecheck": "vue-tsc --noEmit",
     "build:types": "vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",

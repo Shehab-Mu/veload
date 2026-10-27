@@ -1,24 +1,13 @@
 import { resolveSiteOrigin } from "#shared/utils/siteOrigin";
 
 export interface PageSeoOptions {
-  /** Page title without the site suffix. */
   title: string;
-  /** Meta description and Open Graph description. */
   description: string;
-  /** Site relative path of the page, used for the canonical URL. */
   path: string;
-  /** Open Graph type. */
   type?: "website" | "article";
-  /** Site relative path of the social preview image. */
   image?: string;
 }
 
-/**
- * Applies the shared metadata of a documentation page.
- *
- * Titles, descriptions, canonical links, Open Graph and Twitter cards are
- * derived from the same options so they can never disagree.
- */
 export function usePageSeo(options: PageSeoOptions) {
   const config = useRuntimeConfig();
   const requestUrl = useRequestURL();

@@ -69,8 +69,7 @@ function collectBindings(inputs: BindingInput[]): Binding[] {
 
   for (const input of inputs) {
     if (typeof input.value === "boolean") {
-      // A boolean is only mentioned when it differs from the default, so the
-      // snippet stays short but never disagrees with the preview.
+
       if (input.value !== input.fallback) {
         bindings.push(input);
       }
@@ -136,7 +135,7 @@ function loaderBindings(
     { name: "decorative", value: state.decorative, fallback: defaults.decorative },
   ];
 
-  // Only the progress ring renders a value.
+
   if (entry.supportsValue) {
     inputs.push({ name: "value", value: state.value, fallback: defaults.value });
   }
@@ -180,9 +179,7 @@ function skeletonBindings(
   return collectBindings(inputs.filter((input) => supported.includes(input.name)));
 }
 
-/**
- * Builds the template usage of a named loader.
- */
+
 export function loaderTemplate(
   entry: LoaderMeta,
   state: LoaderControlState,
@@ -195,9 +192,7 @@ export function loaderTemplate(
     : `<${entry.name} />`;
 }
 
-/**
- * Builds a complete single file component for a named loader.
- */
+
 export function loaderSfc(
   entry: LoaderMeta,
   state: LoaderControlState,
@@ -213,9 +208,7 @@ import "veload/style.css";
 </template>`;
 }
 
-/**
- * Builds a state driven example for a named loader.
- */
+
 export function loaderComposition(
   entry: LoaderMeta,
   state: LoaderControlState,
@@ -252,9 +245,7 @@ ${refs}
 </template>`;
 }
 
-/**
- * Builds the TypeScript API snippet of a named loader.
- */
+
 export function loaderTypes(
   entry: LoaderMeta,
   state: LoaderControlState,
@@ -303,9 +294,7 @@ export function loaderTypes(
   return lines.join("\n");
 }
 
-/**
- * Builds the template usage of a named skeleton preset.
- */
+
 export function skeletonTemplate(
   preset: SkeletonPresetMeta,
   state: SkeletonControlState,
@@ -318,9 +307,7 @@ export function skeletonTemplate(
     : `<${preset.name} />`;
 }
 
-/**
- * Builds a complete single file component for a named skeleton preset.
- */
+
 export function skeletonSfc(
   preset: SkeletonPresetMeta,
   state: SkeletonControlState,
@@ -336,9 +323,7 @@ import "veload/style.css";
 </template>`;
 }
 
-/**
- * Builds a state driven example for a named skeleton preset.
- */
+
 export function skeletonComposition(
   preset: SkeletonPresetMeta,
   state: SkeletonControlState,
@@ -375,7 +360,7 @@ ${refs}
 </template>`;
 }
 
-/** Builds a typed preset example from the same supported bindings as its preview. */
+
 export function skeletonTypes(
   preset: SkeletonPresetMeta,
   state: SkeletonControlState,
@@ -397,16 +382,12 @@ export function skeletonTypes(
   ].join("\n");
 }
 
-/**
- * Installation instructions shared by the documentation pages.
- */
+
 export function installSnippet(): string {
   return "npm install veload";
 }
 
-/**
- * Stylesheet registration for the different frameworks.
- */
+
 export function stylesheetSnippet(): string {
   return `// Nuxt — nuxt.config.ts
 export default defineNuxtConfig({

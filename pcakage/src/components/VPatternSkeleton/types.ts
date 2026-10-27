@@ -8,33 +8,19 @@ export interface SkeletonAppearanceProps {
 }
 
 export interface VPatternSkeletonProps extends SkeletonAppearanceProps {
-  /** Layout pattern. @default "lines" */
   pattern?: SkeletonPattern;
-  /** Repeated lines, items, fields, or data rows (1–12). Table/dashboard headers are separate; dashboard always includes one header. @default 3 */
   rows?: number;
-  /** Table column count. @default 3 */
   columns?: number;
-  /** Image or media height in pixels or a CSS length. */
   mediaHeight?: number | string;
-  /** Avatar diameter in pixels. */
   avatarSize?: number;
-  /** Enables optional media blocks where the pattern supports them. @default true */
   showMedia?: boolean;
-  /** Enables optional avatar blocks where the pattern supports them. @default true */
   showAvatar?: boolean;
-  /** Enables a table header. @default true */
   showHeader?: boolean;
-  /** Enables the dashboard chart block. @default true */
   showChart?: boolean;
-  /** Enables profile or dashboard statistic blocks. @default true */
   showStats?: boolean;
-  /** Enables the form submit block. @default true */
   showSubmit?: boolean;
-  /** Enables the product rating block. @default true */
   showRating?: boolean;
-  /** Enables the product price block. @default true */
   showPrice?: boolean;
-  /** Enables the product call-to-action block. @default true */
   showCta?: boolean;
 }
 

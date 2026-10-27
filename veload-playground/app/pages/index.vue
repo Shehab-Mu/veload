@@ -18,7 +18,7 @@ import SkeletonCard from "~/components/SkeletonCard.vue";
 usePageSeo({
   title: "Accessible Vue 3 loaders, skeletons and progress components",
   description:
-    `Veload is a dependency-free Vue 3 loading toolkit available on npm as veload@0.1.0: ${loaders.length} loaders, skeleton presets, progress bars and loading buttons with accessible defaults.`,
+    `Veload is a Vue 3 loading toolkit available on npm as veload@0.1.1: ${loaders.length} named loaders, skeleton presets, progress bars and loading buttons with accessible defaults.`,
   path: "/",
 });
 
@@ -31,8 +31,8 @@ const controls = reactive({
 
 const features = [
   {
-    title: `${loaders.length} loader treatments`,
-    body: "Original CSS animations covering motion, circular, geometric and utility styles, each with its own detail page and copyable example.",
+    title: `${loaders.length} named loaders`,
+    body: "CSS animations covering motion, circular, geometric and utility styles, each with its own detail page and copyable example.",
   },
   {
     title: "Skeleton presets",
@@ -47,8 +47,8 @@ const features = [
     body: "Every animation collapses under prefers-reduced-motion, so the interface stays calm for people who ask for it.",
   },
   {
-    title: "Framework agnostic",
-    body: "Plain Vue 3 components and composables. No Nuxt module, no plugin, no global manager, no runtime dependencies.",
+    title: "Built for Vue 3",
+    body: "Vue components and composables with no Nuxt module, plugin or global manager required.",
   },
   {
     title: "Typed end to end",
@@ -57,7 +57,7 @@ const features = [
 ];
 
 const stats = [
-  { value: String(loaders.length), label: "loader treatments" },
+  { value: String(loaders.length), label: "named loaders" },
   { value: "11", label: "skeleton patterns" },
   { value: "0", label: "runtime dependencies" },
   { value: "100%", label: "server renderable" },
@@ -75,9 +75,9 @@ useHead({
         name: "Veload",
         alternateName: "veload",
         description:
-          "A publicly available Vue 3 loading toolkit distributed on npm as veload@0.1.0, with loaders, skeletons and progress components.",
+          "A publicly available Vue 3 loading toolkit distributed on npm as veload@0.1.1, with loaders, skeletons and progress components.",
         url: "https://www.npmjs.com/package/veload",
-        softwareVersion: "0.1.0",
+        softwareVersion: "0.1.1",
         programmingLanguage: "Vue",
         runtimePlatform: "Web Browser",
         offers: {
@@ -343,7 +343,7 @@ useHead({
         <li class="primitive">
           <h3 class="primitive__title">VLoader</h3>
           <p class="primitive__body">
-            The generic loader that switches between all 32 treatments.
+            The generic loader that switches between all 37 treatments.
           </p>
           <div class="primitive__demo">
             <VLoader variant="morph" :size="32" color="#f97316" decorative />
@@ -372,7 +372,7 @@ useHead({
         </div>
         <p class="section__lead">
           Install the MIT-licensed Vue 3 toolkit from npm as
-          <code>veload@0.1.0</code>.
+          <code>veload@0.1.1</code>.
         </p>
       </div>
 

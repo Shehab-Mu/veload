@@ -9,16 +9,16 @@
  * represented without loss.
  */
 
-/** Opaque equivalent of the library default base colour. */
+
 export const DEFAULT_BASE_COLOR = "#94a3b8";
 
-/** Opaque equivalent of the library default highlight colour. */
+
 export const DEFAULT_HIGHLIGHT_COLOR = "#ffffff";
 
 export interface PickerColor {
-  /** The opaque hexadecimal colour the native picker can display. */
+
   hex: string;
-  /** Whether the source value carries transparency the picker cannot show. */
+
   hasAlpha: boolean;
 }
 
@@ -135,10 +135,7 @@ export function toPickerColor(value: string): PickerColor | null {
   return null;
 }
 
-/**
- * Decides whether a typed colour can be shown in a native picker without
- * losing information.
- */
+
 export function isPickerRepresentable(value: string): boolean {
   const parsed = toPickerColor(value);
   return parsed !== null && !parsed.hasAlpha;

@@ -1,31 +1,17 @@
 import { computed, type ComputedRef, type Ref } from "vue";
 
-/**
- * A reactive boolean source or a getter that returns one.
- *
- * Typically this is the `isLoading` ref from another composable instance.
- */
+
 export type LoadingSource = Readonly<Ref<boolean>> | (() => boolean);
 
 export interface UseLoadingGroupReturn {
-  /**
-   * `true` when at least one source is active.
-   */
+
   isLoading: ComputedRef<boolean>;
 
-  /**
-   * Number of sources that are currently active.
-   */
+
   activeCount: ComputedRef<number>;
 }
 
-/**
- * Aggregates independent loading sources into a single loading state.
- *
- * Pass an array for a fixed set of sources, or a getter when the set of
- * sources changes dynamically. The group does not own the sources; it only
- * reads them.
- */
+
 export function useLoadingGroup(
   sources: readonly LoadingSource[] | (() => readonly LoadingSource[]),
 ): UseLoadingGroupReturn {

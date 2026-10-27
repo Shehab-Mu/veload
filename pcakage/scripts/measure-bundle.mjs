@@ -1,12 +1,4 @@
-/**
- * Measures the payload a consumer pays for.
- *
- * Three bundles are produced from the library source: one that imports a single
- * component, one for the four additional loaders, and the whole package. The
- * single-component comparison shows how much can be tree shaken away.
- *
- * Run it with `npm run check:bundle`.
- */
+
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";

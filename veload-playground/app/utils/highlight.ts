@@ -79,9 +79,7 @@ const bashRules: Rule[] = [
   },
 ];
 
-/**
- * Splits a source string into typed tokens.
- */
+
 export function tokenize(source: string, rules: Rule[]): Token[] {
   const tokens: Token[] = [];
   let index = 0;
@@ -128,9 +126,7 @@ export function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/**
- * Renders tokens as HTML.
- */
+
 export function renderTokens(tokens: Token[]): string {
   return tokens
     .map((token) => {
@@ -149,16 +145,12 @@ function renderWith(source: string, rules: Rule[]): string {
   return renderTokens(tokenize(source, rules));
 }
 
-/**
- * Highlights a TypeScript snippet.
- */
+
 export function highlightTs(source: string): string {
   return renderWith(source, tsRules);
 }
 
-/**
- * Highlights a shell snippet.
- */
+
 export function highlightBash(source: string): string {
   return renderWith(source, bashRules);
 }
@@ -217,9 +209,7 @@ function collectRegions(source: string): Region[] {
   return regions.sort((a, b) => a.start - b.start);
 }
 
-/**
- * Highlights a Vue single file component.
- */
+
 export function highlightVue(source: string): string {
   const regions = collectRegions(source);
   let result = "";

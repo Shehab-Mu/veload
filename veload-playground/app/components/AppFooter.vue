@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const currentYear = new Date().getFullYear();
+
 const sections = [
   {
     title: "Components",
@@ -56,7 +58,25 @@ const sections = [
     </div>
 
     <div class="container site-footer__bottom">
-      <p>Written in TypeScript, rendered with Vue 3 and Nuxt.</p>
+      <p>
+        © {{ currentYear }} Veload. All rights reserved.
+        <span aria-hidden="true">·</span>
+        Made by
+        <a
+          class="site-footer__link"
+          href="https://www.linkedin.com/in/shehab-mu/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Shehab Muhammed on LinkedIn (opens in a new tab)"
+        >Shehab Muhammed</a>
+      </p>
+      <a
+        class="site-footer__link"
+        href="https://github.com/Shehab-Mo/veload"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Veload on GitHub (opens in a new tab)"
+      >GitHub</a>
     </div>
   </footer>
 </template>
@@ -123,10 +143,19 @@ const sections = [
 }
 
 .site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
   padding-block: 1.25rem 2rem;
   border-top: 1px solid var(--border);
   color: var(--text-subtle);
   font-size: 0.78rem;
+}
+
+.site-footer__bottom .site-footer__link {
+  font-size: inherit;
 }
 
 @media (max-width: 48rem) {
