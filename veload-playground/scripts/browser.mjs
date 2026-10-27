@@ -47,7 +47,8 @@ export async function stopProcess(child, { group = false, graceMs = 1500 } = {})
     }
   };
   if (process.platform === "win32") {
-    // A crashed check may have left Chrome alive even when its Node parent exited.
+    // An exited process no longer owns its PID; do not taskkill a possible reuse.
+    if (exited) return;
     const killer = spawn("taskkill", ["/PID", String(child.pid), "/T", "/F"], {
       stdio: "ignore", windowsHide: true,
     });
@@ -76,6 +77,8 @@ export async function stopProcess(child, { group = false, graceMs = 1500 } = {})
  * Returns evaluate(...evaluateArgs), preserving the existing withPage contract.
  * actions receives send/evaluate/waitFor plus navigation, viewport/media, real
  * mouse/keyboard helpers and diagnostics. onDiagnostics also runs on failure.
+ * preserveClipboard snapshots Chrome-readable MIME data in memory before actions
+ * and restores it before shutdown. Native-only formats are outside the web API.
  */
 export async function withPage(url, evaluate, options = {}) {
   const chrome = findChrome();
@@ -105,6 +108,8 @@ export async function withPage(url, evaluate, options = {}) {
   const abort = new AbortController();
   const timeoutMs = options.timeoutMs ?? 45000;
   let timeout;
+  let clipboardSnapshot;
+  let sessionError;
   const failure = new Promise((_, reject) => {
     timeout = setTimeout(() => {
       const error = new Error(`Browser session exceeded ${timeoutMs}ms (${currentUrl})`);
@@ -123,7 +128,8 @@ export async function withPage(url, evaluate, options = {}) {
     for (const request of pending.values()) { clearTimeout(request.timer); request.reject(error); }
     pending.clear();
   };
-  const send = (method, params = {}) => new Promise((resolve, reject) => {
+  const send = (method, params = {}, cleanup = false) => new Promise((resolve, reject) => {
+    if (!cleanup && abort.signal.aborted) return reject(abort.signal.reason);
     if (closed || socket?.readyState !== WebSocket.OPEN) return reject(new Error(`CDP is closed (${method})`));
     const requestId = ++id;
     const timer = setTimeout(() => {
@@ -206,7 +212,10 @@ export async function withPage(url, evaluate, options = {}) {
     const codes = { Enter: 13, Tab: 9, Home: 36, End: 35, ArrowLeft: 37, ArrowRight: 39, Backspace: 8, " ": 32 };
     if (!codes[key]) throw new Error(`Unsupported verification key: ${key}`);
     for (const type of ["keyDown", "keyUp"]) {
-      await send("Input.dispatchKeyEvent", { type, key, code: key === " " ? "Space" : key, modifiers, windowsVirtualKeyCode: codes[key] });
+      await send("Input.dispatchKeyEvent", {
+        type, key, code: key === " " ? "Space" : key, modifiers, windowsVirtualKeyCode: codes[key],
+        ...(key === "Enter" && type === "keyDown" ? { text: "\r", unmodifiedText: "\r" } : {}),
+      });
     }
     await settle();
   };
@@ -281,8 +290,39 @@ export async function withPage(url, evaluate, options = {}) {
       await setViewport(viewport);
       await setMedia({});
       await navigate(url);
+      if (options.preserveClipboard) {
+        await send("Page.bringToFront");
+        await send("Browser.grantPermissions", {
+          origin: allowedOrigin, permissions: ["clipboardReadWrite", "clipboardSanitizedWrite"],
+        });
+        clipboardSnapshot = await evaluateExpression(`(async () => {
+          try {
+            if (!navigator.clipboard?.read || !navigator.clipboard?.write || !ClipboardItem.supports) throw new Error();
+            // Chrome can represent an empty clipboard with a zero-type item.
+            const items = (await navigator.clipboard.read({ unsanitized: ["text/html"] }))
+              .filter(item => item.types.length > 0);
+            // Chrome can only write one item. Never silently discard exposed data.
+            if (items.length > 1) throw new Error();
+            const snapshot = [];
+            for (const item of items) {
+              const types = [];
+              for (const type of item.types) {
+                if (!ClipboardItem.supports(type)) throw new Error();
+                const blob = await item.getType(type);
+                types.push({ type, bytes: Array.from(new Uint8Array(await blob.arrayBuffer())) });
+              }
+              snapshot.push(types);
+            }
+            return snapshot;
+          } catch {
+            throw new Error("Clipboard snapshot failed; refusing to run clipboard-changing checks");
+          }
+        })()`);
+      }
+      abort.signal.throwIfAborted();
       const page = { send, evaluate: evaluateExpression, waitFor, navigate, setViewport, setMedia, click, press, settle, diagnostics };
       if (options.actions) await options.actions(page);
+      abort.signal.throwIfAborted();
       const value = await evaluateExpression(`(${evaluate.toString()})(...${JSON.stringify(options.evaluateArgs ?? [])})`);
       if (options.failOnDiagnostics !== false && diagnostics.length) {
         throw new Error(`Browser warnings/errors: ${JSON.stringify(diagnostics.slice(0, 5))}`);
@@ -290,17 +330,54 @@ export async function withPage(url, evaluate, options = {}) {
       return value;
     })()]);
     return result;
+  } catch (error) {
+    sessionError = error;
+    throw error;
   } finally {
-    closed = true;
     clearTimeout(timeout);
     abort.abort(new Error("Browser session ended"));
     rejectPending(new Error("Browser session ended"));
-    try { socket?.close(); } catch { /* A failed handshake may already have closed it. */ }
-    try { await stopProcess(browser, { group: browserGroup }); }
-    finally {
-      try { rmSync(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 150 }); }
-      catch { console.warn(`Chrome profile could not be removed: ${profile}`); }
-      options.onDiagnostics?.(diagnostics.slice());
+    try {
+      if (clipboardSnapshot !== undefined) {
+        try {
+          await send("Page.bringToFront", {}, true);
+          // Pass private data as CDP arguments, never as source text or diagnostics.
+          const { result } = await send("Runtime.evaluate", { expression: "globalThis" }, true);
+          const restored = await send("Runtime.callFunctionOn", {
+            objectId: result.objectId,
+            functionDeclaration: `async function(snapshot) {
+              try {
+                if (!snapshot.length) {
+                  // The web API has no native clear operation; restore empty text.
+                  await navigator.clipboard.writeText("");
+                } else {
+                  await navigator.clipboard.write(snapshot.map(types => new ClipboardItem(
+                    Object.fromEntries(types.map(({ type, bytes }) => [type, new Blob([Uint8Array.from(bytes)], { type })]))
+                  )));
+                }
+                return true;
+              } catch { return false; }
+            }`,
+            arguments: [{ value: clipboardSnapshot }],
+            returnByValue: true, awaitPromise: true, userGesture: true,
+          }, true);
+          if (restored.exceptionDetails || restored.result?.value !== true) throw new Error();
+        } catch {
+          const error = new Error("Clipboard restoration failed; original clipboard contents may not have been restored");
+          throw sessionError ? new AggregateError([sessionError, error], `${sessionError.message}; ${error.message}`) : error;
+        } finally {
+          clipboardSnapshot = undefined;
+        }
+      }
+    } finally {
+      closed = true;
+      try { socket?.close(); } catch { /* A failed handshake may already have closed it. */ }
+      try { await stopProcess(browser, { group: browserGroup }); }
+      finally {
+        try { rmSync(profile, { recursive: true, force: true, maxRetries: 3, retryDelay: 150 }); }
+        catch { console.warn(`Chrome profile could not be removed: ${profile}`); }
+        options.onDiagnostics?.(diagnostics.slice());
+      }
     }
   }
 }

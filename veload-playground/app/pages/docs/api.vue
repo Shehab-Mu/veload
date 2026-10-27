@@ -249,7 +249,7 @@ const customProperties = [
     <PageIntro
       eyebrow="Reference"
       title="API reference"
-      lead="Every prop below is read from the published package at build time, so the tables always describe the code you actually install."
+      lead="Prop names and defaults come from the installed library build, alongside maintained type, slot and usage documentation."
     />
 
     <article class="docs__body">
@@ -269,21 +269,29 @@ const customProperties = [
 
           <PropTable :props="section.props" :caption="`${section.name} props`" />
 
-          <table v-if="section.slots.length > 0" class="api-table">
-            <caption class="visually-hidden">{{ section.name }} slots</caption>
-            <thead>
-              <tr>
-                <th scope="col">Slot</th>
-                <th scope="col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="slot in section.slots" :key="slot.name">
-                <th scope="row"><code>{{ slot.name }}</code></th>
-                <td>{{ slot.description }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div
+            v-if="section.slots.length > 0"
+            class="api-table__wrapper"
+            tabindex="0"
+            role="region"
+            :aria-label="`${section.name} slots`"
+          >
+            <table class="api-table">
+              <caption class="visually-hidden">{{ section.name }} slots</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Slot</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="slot in section.slots" :key="slot.name">
+                  <th scope="row"><code>{{ slot.name }}</code></th>
+                  <td>{{ slot.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </section>
 
@@ -318,23 +326,30 @@ const customProperties = [
           <h3 class="api-block__title">{{ composable.name }}</h3>
           <p class="api-block__summary">{{ composable.summary }}</p>
 
-          <table class="api-table">
-            <caption class="visually-hidden">{{ composable.name }} members</caption>
-            <thead>
-              <tr>
-                <th scope="col">Member</th>
-                <th scope="col">Type</th>
-                <th scope="col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="member in composable.members" :key="member.name">
-                <th scope="row"><code>{{ member.name }}</code></th>
-                <td><code>{{ member.type }}</code></td>
-                <td>{{ member.description }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div
+            class="api-table__wrapper"
+            tabindex="0"
+            role="region"
+            :aria-label="`${composable.name} members`"
+          >
+            <table class="api-table">
+              <caption class="visually-hidden">{{ composable.name }} members</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Member</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="member in composable.members" :key="member.name">
+                  <th scope="row"><code>{{ member.name }}</code></th>
+                  <td><code>{{ member.type }}</code></td>
+                  <td>{{ member.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </section>
 
@@ -354,7 +369,7 @@ const customProperties = [
           a component or on any ancestor.
         </p>
 
-        <div class="api-table__wrapper">
+        <div class="api-table__wrapper" tabindex="0" role="region" aria-label="CSS custom properties">
           <table class="api-table">
             <caption class="visually-hidden">CSS custom properties</caption>
             <thead>
@@ -397,10 +412,12 @@ const customProperties = [
 
 .docs__body {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
 }
 
 .api-section {
+  min-width: 0;
   padding-block: 1rem;
 }
 
@@ -412,6 +429,7 @@ const customProperties = [
 }
 
 .api-block {
+  min-width: 0;
   padding-block: 1.25rem;
 }
 
@@ -438,6 +456,8 @@ const customProperties = [
 }
 
 .api-table__wrapper {
+  min-width: 0;
+  max-width: 100%;
   margin-top: 1rem;
   overflow-x: auto;
   border: 1px solid var(--border);

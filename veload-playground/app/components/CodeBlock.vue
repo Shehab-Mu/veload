@@ -63,8 +63,8 @@ const buttonLabel = computed(() => {
         type="button"
         class="copy-button"
         :class="`copy-button--${state}`"
-        :disabled="state === 'copied'"
-        @click="copy(code)"
+        :aria-disabled="state === 'copied'"
+        @click="state !== 'copied' && copy(code)"
       >
         {{ buttonLabel }}
       </button>
@@ -157,7 +157,7 @@ const buttonLabel = computed(() => {
     color 0.15s ease;
 }
 
-.copy-button:hover:not(:disabled) {
+.copy-button:hover:not([aria-disabled="true"]) {
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.1);
 }
@@ -172,7 +172,7 @@ const buttonLabel = computed(() => {
   color: var(--danger);
 }
 
-.copy-button:disabled {
+.copy-button[aria-disabled="true"] {
   cursor: default;
   opacity: 0.75;
 }

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { version } from "#shared/data/package";
 import AppBreadcrumbs from "~/components/AppBreadcrumbs.vue";
 import CodeBlock from "~/components/CodeBlock.vue";
 import CodeTabs from "~/components/CodeTabs.vue";
@@ -17,7 +18,7 @@ import {
 usePageSeo({
   title: "Installation",
   description:
-    "Install Veload's published veload@0.1.1 package. Vue ^3.5.2 setup, stylesheet imports, TypeScript examples and Nuxt SSR guidance.",
+    `Documentation for veload@${version}. Vue ^3.5.2 setup, stylesheet imports, TypeScript examples and Nuxt SSR guidance.`,
   path: "/docs/installation",
 });
 </script>
@@ -35,7 +36,7 @@ usePageSeo({
     <PageIntro
       eyebrow="Getting started"
       title="Installation"
-      lead="Install Veload from npm as veload@0.1.1, then import its Vue components and stylesheet in your application."
+      :lead="`Documentation for veload@${version}. Install Veload from npm, then import its Vue components and stylesheet in your application.`"
     />
 
     <div class="docs__layout">
@@ -61,7 +62,9 @@ usePageSeo({
         <h2 id="install-the-package">Install the package</h2>
         <p>
           Install the published MIT-licensed package using your preferred
-          package manager. The playground's local monorepo dependency is only
+          package manager. The documentation version follows the library source,
+          not necessarily the currently published npm release.
+          The playground's local monorepo dependency is only
           for maintaining this site; consumers do not need a repository clone,
           local build or link step.
         </p>
@@ -72,7 +75,7 @@ usePageSeo({
             target="_blank"
             rel="noreferrer"
           >
-            View veload@0.1.1 on npm
+            View veload on npm
           </a>
         </p>
 

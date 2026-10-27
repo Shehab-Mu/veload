@@ -87,7 +87,7 @@ usePageSeo({
         overlay can no longer receive pointer or keyboard focus, so keyboard
         users cannot tab into a region that is being replaced. The overlay
         itself is not focusable: it reports state, it does not accept input.
-        Set <code>inert-content="false"</code> when the content must stay
+        Set <code>:inert-content="false"</code> when the content must stay
         interactive while it refreshes.
       </p>
 
@@ -101,8 +101,9 @@ usePageSeo({
 
       <h2>Buttons</h2>
       <p>
-        A loading button stays focusable and keeps its accessible name, so the
-        user always knows which action is running.
+        A loading button keeps its accessible name but is natively disabled
+        while loading, so it cannot be activated or reached by tabbing until
+        the operation finishes.
       </p>
 
       <CodeBlock :code="loadingButtonExample" language="vue" label="Button" />

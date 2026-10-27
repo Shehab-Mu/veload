@@ -32,6 +32,9 @@ export function useCopyCode(resetAfter = 2000) {
       return false;
     }
 
+    const previousFocus = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
     const textarea = document.createElement("textarea");
     textarea.value = text;
     textarea.setAttribute("readonly", "");
@@ -41,12 +44,16 @@ export function useCopyCode(resetAfter = 2000) {
     document.body.appendChild(textarea);
 
     try {
+      textarea.focus({ preventScroll: true });
       textarea.select();
       return document.execCommand("copy");
     } catch {
       return false;
     } finally {
       document.body.removeChild(textarea);
+      if (previousFocus?.isConnected) {
+        previousFocus.focus({ preventScroll: true });
+      }
     }
   }
 
@@ -55,9 +62,18 @@ export function useCopyCode(resetAfter = 2000) {
     message.value = "";
 
     try {
+      let copied = false;
+
       if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-      } else if (!legacyCopy(text)) {
+        try {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } catch {
+          // A denied modern API can still allow the legacy copy command.
+        }
+      }
+
+      if (!copied && !legacyCopy(text)) {
         throw new Error("Clipboard is unavailable");
       }
 

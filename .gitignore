@@ -1,4 +1,4 @@
-# Dependencies and generated application/library output
+# Dependencies and generated library/application output
 node_modules/
 dist/
 dist-ssr/
@@ -9,19 +9,19 @@ build/
 .data/
 .cache/
 .vite/
+.vite-temp/
 .vercel/
 .netlify/
 .bundle-measurement/
 *.tsbuildinfo
 *.tgz
 
-# Local environment, authentication, and private key material
+# Private environment files, credentials, and keys
 .env*
 !.env.example
 !.env.sample
 !.env.template
 .npmrc
-!.npmrc.example
 .netrc
 _netrc
 .pypirc
@@ -34,30 +34,7 @@ _netrc
 *.local
 .nuxtrc
 
-# Test suites and test-only fixtures (kept on disk, not uploaded)
-tests/
-test/
-__tests__/
-__mocks__/
-__fixtures__/
-*.test.*
-*.spec.*
-
-# Keep the documentation SEO regression test in the repository.
-!/veload-playground/tests/
-!/veload-playground/tests/documentation-seo.test.ts
-!/veload-playground/tests/floating-actions.test.ts
-
-# Project-specific test runners; build and screenshot utilities stay available
-/pcakage/scripts/consumer-check.mjs
-!/pcakage/scripts/consumer-check.mjs
-/veload-playground/scripts/audit.mjs
-!/veload-playground/scripts/audit.mjs
-/veload-playground/scripts/interaction-check.mjs
-/veload-playground/scripts/workspace-check.mjs
-/veload-playground/scripts/verify-production.mjs
-
-# Generated testing and browser-audit artifacts
+# Generated test coverage, reports, and browser artifacts
 coverage/
 .nyc_output/
 .vitest/
@@ -69,41 +46,25 @@ blob-report/
 *.lcov
 *.lcov.info
 
-# Markdown is local-only, except README documents at any depth
-*.[mM][dD]
-*.[mM][dD][xX]
-*.[mM][aA][rR][kK][dD][oO][wW][nN]
-*.[mM][dD][oO][wW][nN]
-*.[mM][kK][dD]
-*.[mM][kK][dD][nN]
-![rR][eE][aA][dD][mM][eE].[mM][dD]
-![rR][eE][aA][dD][mM][eE].[mM][aA][rR][kK][dD][oO][wW][nN]
-![rR][eE][aA][dD][mM][eE].[mM][dD][oO][wW][nN]
-![rR][eE][aA][dD][mM][eE].[mM][kK][dD]
-![rR][eE][aA][dD][mM][eE].[mM][kK][dD][nN]
-
-# Logs, temporary files, and machine-local editor settings
+# Logs and temporary files
 logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*-debug.log*
+*-error.log*
 *.tmp
 *.temp
 *.bak
 *.sw?
 *~
-.DS_Store
-Thumbs.db
-Desktop.ini
+
+# Machine-specific editor and operating-system files
 .idea/
-**/.vscode/*
-!**/.vscode/extensions.json
 *.suo
 *.ntvs*
 *.njsproj
+.DS_Store
+Thumbs.db
+Desktop.ini
 
-# Existing local shell artifact; deliberately retained on disk
+# Existing accidental shell-redirection artifact; preserve the local file
 /veload-playground/=0

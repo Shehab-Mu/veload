@@ -1,6 +1,6 @@
 {
   "name": "veload",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Accessible Vue 3 loaders, skeletons, progress indicators, and loading-state composables.",
   "type": "module",
   "main": "./dist/index.cjs",
