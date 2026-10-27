@@ -343,7 +343,7 @@ useHead({
         <li class="primitive">
           <h3 class="primitive__title">VLoader</h3>
           <p class="primitive__body">
-            The generic loader that switches between all 37 treatments.
+            The generic loader that switches between all 36 treatments.
           </p>
           <div class="primitive__demo">
             <VLoader variant="morph" :size="32" color="#f97316" decorative />

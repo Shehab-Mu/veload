@@ -42,7 +42,7 @@ onUnmounted(() => {
 
     <a
       class="floating-actions__item"
-      href="https://github.com/Shehab-Mo/veload"
+      href="https://github.com/Shehab-Mu/veload"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Star Veload on GitHub"
