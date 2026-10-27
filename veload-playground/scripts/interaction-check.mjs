@@ -172,12 +172,8 @@ const results = await withPage(
   },
   {
     delay: 0,
+    preserveClipboard: true,
     actions: async ({ send, waitFor }) => {
-      await send("Browser.grantPermissions", {
-        origin: new URL(baseUrl).origin,
-        permissions: ["clipboardReadWrite", "clipboardSanitizedWrite"],
-      });
-
       await clickCopyButton({ send, waitFor });
       await new Promise((resolve) => setTimeout(resolve, 500));
     },
