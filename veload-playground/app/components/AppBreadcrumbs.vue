@@ -32,18 +32,32 @@ defineProps<{
 </template>
 
 <style scoped>
+.breadcrumbs {
+  min-inline-size: 0;
+  margin: 30px 0;
+}
+
 .breadcrumbs__list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.375rem 0.625rem;
   font-size: 0.82rem;
+  line-height: 1.5;
 }
 
 .breadcrumbs__item {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.625rem;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.breadcrumbs__link,
+.breadcrumbs__current {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
 }
 
 .breadcrumbs__link {
@@ -51,7 +65,8 @@ defineProps<{
   text-decoration: none;
 }
 
-.breadcrumbs__link:hover {
+.breadcrumbs__link:hover,
+.breadcrumbs__link:focus-visible {
   color: var(--accent-strong);
   text-decoration: underline;
 }
@@ -62,6 +77,8 @@ defineProps<{
 }
 
 .breadcrumbs__separator {
+  flex-shrink: 0;
   color: var(--text-subtle);
+  font-size: 0.75rem;
 }
 </style>

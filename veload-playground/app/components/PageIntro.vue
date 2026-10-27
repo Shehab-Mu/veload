@@ -24,7 +24,7 @@ withDefaults(
 <style scoped>
 .page-intro {
   max-width: 46rem;
-  padding-block: clamp(2.5rem, 6vw, 4rem) 1.5rem;
+  padding: 40px 0;
 }
 
 .page-intro__title {
