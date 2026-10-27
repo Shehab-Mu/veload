@@ -225,9 +225,6 @@ function onHighlightColorPicker(event: Event): void {
                 step="1"
                 :disabled="!isReady"
               />
-              <p v-if="entry.pattern === 'dashboard' || entry.pattern === 'table'" id="skeleton-rows-hint" class="control__hint">
-                {{ entry.pattern === 'dashboard' ? 'Data rows only. One fixed table header is always shown; statistics and chart are separate.' : 'Data rows only. The optional table header is separate.' }}
-              </p>
             </div>
 
             <div v-if="supportedProps.includes('columns')" class="control">
@@ -245,6 +242,9 @@ function onHighlightColorPicker(event: Event): void {
               />
             </div>
           </div>
+          <p v-if="entry.pattern === 'dashboard' || entry.pattern === 'table'" id="skeleton-rows-hint" class="control__hint control--wide">
+            {{ entry.pattern === 'dashboard' ? 'Data rows only. One fixed table header is always shown; statistics and chart are separate.' : 'Data rows only. The optional table header is separate.' }}
+          </p>
 
           <div v-if="supportedProps.includes('avatarSize')" class="control">
             <label for="skeleton-avatar">
