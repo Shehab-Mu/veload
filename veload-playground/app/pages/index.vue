@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive } from "vue";
+import { version } from "#shared/data/package";
 import {
   VLoading,
   VLoadingButton,
@@ -15,10 +16,10 @@ import CodeBlock from "~/components/CodeBlock.vue";
 import LoaderCard from "~/components/LoaderCard.vue";
 import SkeletonCard from "~/components/SkeletonCard.vue";
 
-usePageSeo({
+const { canonical } = usePageSeo({
   title: "Accessible Vue 3 loaders, skeletons and progress components",
   description:
-    `Veload is a Vue 3 loading toolkit available on npm as veload@0.1.1: ${loaders.length} named loaders, skeleton presets, progress bars and loading buttons with accessible defaults.`,
+    `Documentation for veload@${version}. A Vue 3 loading toolkit with ${loaders.length} named loaders, skeleton presets, progress bars and loading buttons with accessible defaults.`,
   path: "/",
 });
 
@@ -60,7 +61,7 @@ const stats = [
   { value: String(loaders.length), label: "named loaders" },
   { value: "11", label: "skeleton patterns" },
   { value: "0", label: "runtime dependencies" },
-  { value: "100%", label: "server renderable" },
+  { value: "Nuxt", label: "live playground" },
 ];
 
 const code = computed(() => installSnippet());
@@ -75,9 +76,9 @@ useHead({
         name: "Veload",
         alternateName: "veload",
         description:
-          "A publicly available Vue 3 loading toolkit distributed on npm as veload@0.1.1, with loaders, skeletons and progress components.",
-        url: "https://www.npmjs.com/package/veload",
-        softwareVersion: "0.1.1",
+          `Documentation for veload@${version}. A Vue 3 loading toolkit with loaders, skeletons and progress components.`,
+        url: canonical,
+        softwareVersion: version,
         programmingLanguage: "Vue",
         runtimePlatform: "Web Browser",
         offers: {
@@ -239,6 +240,7 @@ useHead({
             :entry="loader"
             :color="controls.color"
             :size="controls.size"
+            :duration="controls.duration"
           />
         </li>
       </ul>
@@ -371,8 +373,8 @@ useHead({
           </h2>
         </div>
         <p class="section__lead">
-          Install the MIT-licensed Vue 3 toolkit from npm as
-          <code>veload@0.1.1</code>.
+          Documentation for <code>veload@{{ version }}</code>.
+          Install the MIT-licensed Vue 3 toolkit from npm.
         </p>
       </div>
 

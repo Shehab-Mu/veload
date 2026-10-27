@@ -67,7 +67,7 @@ function resetFilters(): void {
     <PageIntro
       :eyebrow="`${loaders.length} treatments`"
       title="Every loader, one page"
-      lead="Each treatment is an original CSS animation with its own props, accessibility notes and copyable implementation. Filter the collection, then open a loader to tune it live."
+      lead="Each treatment is a CSS animation with its own props, accessibility notes and copyable implementation. Filter the collection, then open a loader to tune it live."
     />
 
     <div class="toolbar card">

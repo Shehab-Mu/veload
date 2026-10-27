@@ -8,10 +8,12 @@ const props = withDefaults(
     entry: LoaderMeta;
     color?: string;
     size?: number;
+    duration?: number;
   }>(),
   {
     color: "#6d3ff2",
     size: 40,
+    duration: 1400,
   },
 );
 
@@ -21,7 +23,7 @@ const component = computed(() => getLoaderComponent(props.entry.name));
 <template>
   <NuxtLink class="loader-card" :to="`/loaders/${entry.slug}`">
     <span class="loader-card__preview" :style="{ color }">
-      <component :is="component" :size="size" :duration="1400" decorative />
+      <component :is="component" :size="size" :duration="duration" decorative />
     </span>
 
     <span class="loader-card__body">

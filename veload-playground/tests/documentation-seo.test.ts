@@ -9,7 +9,12 @@ import { mockNuxtImport } from "@nuxt/test-utils/runtime";
 import { createEvent } from "h3";
 import { compileScript, compileTemplate, parse } from "vue/compiler-sfc";
 import ts from "typescript";
+import { createSSRApp } from "vue";
+import { renderToString } from "vue/server-renderer";
 import * as Veloader from "veload";
+import HomePage from "../app/pages/index.vue";
+import InstallationPage from "../app/pages/docs/installation.vue";
+import { version } from "../shared/data/package";
 import { resolveSiteOrigin } from "../shared/utils/siteOrigin";
 import { usePageSeo } from "../app/composables/usePageSeo";
 import {
@@ -169,14 +174,78 @@ describe("canonical, social, sitemap and robots agreement", () => {
   });
 });
 
+// Provide the compiled pages' SSR context without rendering unrelated child demos.
+async function runPageSetup(page: typeof HomePage | typeof InstallationPage) {
+  await renderToString(createSSRApp({
+    setup(props, context) {
+      page.setup!(props, context);
+      return () => null;
+    },
+  }));
+}
+
 describe("honest consumer installation documentation", () => {
-  it("documents public package installation and keeps repository commands out of the page", () => {
-    const source = readFileSync(new URL("../app/pages/docs/installation.vue", import.meta.url), "utf8");
+  it("derives the documentation version from the library manifest, not the playground or npm", () => {
     const packageManifest = JSON.parse(
       readFileSync(new URL("../../pcakage/package.json", import.meta.url), "utf8"),
-    ) as { name: string; version: string };
+    ) as { version: string };
+    expect(version).toBe(packageManifest.version);
+    expect(version).toMatch(/^\d+\.\d+\.\d+/);
+  });
+
+  it.each([
+    ["home", HomePage, "/"],
+    ["installation", InstallationPage, "/docs/installation"],
+  ] as const)("labels %s SEO metadata as documentation, not a published release", async (_, page, path) => {
+    await runPageSetup(page);
+
+    const metadata = seo.meta.mock.lastCall![0];
+    expect(metadata.description.startsWith(`Documentation for veload@${version}.`)).toBe(true);
+    expect(metadata.ogDescription).toBe(metadata.description);
+    expect(metadata.twitterDescription).toBe(metadata.description);
+    expect(metadata.ogUrl).toBe(`${requestOrigin}${path}`);
+    expect(metadata.description).not.toMatch(/published|available on npm|npm as veload@/i);
+  });
+
+  it("describes the documented source version in JSON-LD without tying it to an npm release", async () => {
+    await runPageSetup(HomePage);
+
+    const scripts = seo.head.mock.calls.flatMap(([head]) => head.script ?? []);
+    expect(scripts).toHaveLength(1);
+    expect(scripts[0].type).toBe("application/ld+json");
+    const structuredData = JSON.parse(scripts[0].innerHTML);
+    expect(structuredData).toMatchObject({
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      name: "Veload",
+      alternateName: "veload",
+      softwareVersion: version,
+      url: `${requestOrigin}/`,
+    });
+    expect(structuredData.description).toContain(`Documentation for veload@${version}.`);
+    expect(structuredData.description).not.toMatch(/published|available on npm|distributed on npm/i);
+    expect(structuredData.url).not.toContain("npmjs.com");
+  });
+
+  it("keeps visible versions documentation-only and npm calls to action unversioned", () => {
+    const homepage = readFileSync(new URL("../app/pages/index.vue", import.meta.url), "utf8");
+    const installation = readFileSync(new URL("../app/pages/docs/installation.vue", import.meta.url), "utf8");
+    for (const source of [homepage, installation]) {
+      expect(source).toContain('import { version } from "#shared/data/package"');
+      expect(source).toContain("View veload on npm");
+      expect(source).not.toMatch(/veload@\d+\.\d+\.\d+|softwareVersion:\s*["']/);
+      expect(source).not.toMatch(/(?:published|npm as|View)\s+veload@|veload@[^\n]*on npm/i);
+    }
+    expect(homepage).toContain("Documentation for <code>veload@{{ version }}</code>");
+    expect(homepage).toContain("Install the MIT-licensed Vue 3 toolkit from npm.");
+    expect(installation).toContain(':lead="`Documentation for veload@${version}. Install Veload from npm,');
+    expect(installation).toContain("not necessarily the currently published npm release");
+  });
+
+  it("documents public package installation and keeps repository commands out of the page", () => {
+    const source = readFileSync(new URL("../app/pages/docs/installation.vue", import.meta.url), "utf8");
     for (const guidance of [
-      "published MIT-licensed package", "^3.5.2", "not Vue 4", "veload@" + packageManifest.version,
+      "published MIT-licensed package", "^3.5.2", "not Vue 4",
       "Optional registration", "useAsyncData", "module scope", "hydration",
     ]) {
       expect(source).toContain(guidance);

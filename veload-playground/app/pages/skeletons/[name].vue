@@ -17,10 +17,11 @@ if (!entry.value) {
 }
 
 const preset = entry.value;
+const kind = preset.name === "VPatternSkeleton" ? "pattern" : "preset";
 
 usePageSeo({
   title: `${preset.title} skeleton (${preset.name})`,
-  description: `${preset.description}. ${preset.name} is a named Veload skeleton preset for Vue 3 with adjustable rows, colours and optional blocks.`,
+  description: `${preset.description}. ${preset.name} is a Veload skeleton ${kind} for Vue 3 with adjustable rows, colours and optional blocks.`,
   path: `/skeletons/${preset.slug}`,
   type: "article",
 });
@@ -43,7 +44,7 @@ const breadcrumbItems = [
     <AppBreadcrumbs :items="breadcrumbItems" />
 
     <header class="detail__header">
-      <p class="eyebrow">{{ preset.name === 'VPatternSkeleton' ? 'Skeleton pattern' : 'Skeleton preset' }}</p>
+      <p class="eyebrow">Skeleton {{ kind }}</p>
       <h1 class="detail__title">{{ preset.title }}</h1>
       <p class="detail__lead">{{ preset.description }}</p>
       <p class="detail__name">
@@ -55,7 +56,7 @@ const breadcrumbItems = [
     <SkeletonPlayground :entry="preset" />
 
     <section class="detail__notes" aria-labelledby="notes-title">
-      <h2 id="notes-title" class="detail__section-title">About this preset</h2>
+      <h2 id="notes-title" class="detail__section-title">About this {{ kind }}</h2>
       <ul class="detail__notes-list">
         <li v-for="note in preset.highlights" :key="note">{{ note }}</li>
       </ul>

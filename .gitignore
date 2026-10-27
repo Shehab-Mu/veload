@@ -34,7 +34,7 @@ _netrc
 *.local
 .nuxtrc
 
-# Test suites and test-only fixtures (kept on disk, not uploaded)
+# Tests and fixtures remain local-only unless explicitly approved below.
 tests/
 test/
 __tests__/
@@ -43,17 +43,48 @@ __fixtures__/
 *.test.*
 *.spec.*
 
-# Keep the documentation SEO regression test in the repository.
+# Approved library unit and regression tests; other test files remain local-only.
+!/pcakage/src/tests/
+!/pcakage/src/tests/VDashboardSkeleton.test.ts
+!/pcakage/src/tests/VLoaderAdditions.ssr.test.ts
+!/pcakage/src/tests/VLoaderAdditions.test.ts
+!/pcakage/src/tests/VLoaderCollection.ssr.test.ts
+!/pcakage/src/tests/VLoaderCollection.test.ts
+!/pcakage/src/tests/VLoaderHardening.test.ts
+!/pcakage/src/tests/VLoading.test.ts
+!/pcakage/src/tests/VLoadingButton.test.ts
+!/pcakage/src/tests/VProgress.test.ts
+!/pcakage/src/tests/VSkeleton.test.ts
+!/pcakage/src/tests/VSpinner.test.ts
+!/pcakage/src/tests/composableTypes.test.ts
+!/pcakage/src/tests/exports.test.ts
+!/pcakage/src/tests/ssr.test.ts
+!/pcakage/src/tests/templateUsage.test.ts
+!/pcakage/src/tests/useDelayedLoading.test.ts
+!/pcakage/src/tests/useLoading.test.ts
+!/pcakage/src/tests/useLoadingGroup.test.ts
+
+# Approved Playground unit and regression tests.
 !/veload-playground/tests/
 !/veload-playground/tests/documentation-seo.test.ts
 !/veload-playground/tests/floating-actions.test.ts
+!/veload-playground/tests/copy.test.ts
+!/veload-playground/tests/code.test.ts
+!/veload-playground/tests/production-readiness.test.ts
+!/veload-playground/tests/catalog.test.ts
+!/veload-playground/tests/color.test.ts
+!/veload-playground/tests/dashboard-rows.test.ts
+!/veload-playground/tests/loader-additions.test.ts
+!/veload-playground/tests/loader-playground.test.ts
+!/veload-playground/tests/pages.test.ts
+!/veload-playground/tests/skeleton-navigation.test.ts
+!/veload-playground/tests/skeleton-playground.test.ts
+!/veload-playground/tests/snippet-contract.test.ts
 
-# Project-specific test runners; build and screenshot utilities stay available
-/pcakage/scripts/consumer-check.mjs
+# Approved validation scripts; other local-only runners remain excluded.
 !/pcakage/scripts/consumer-check.mjs
-/veload-playground/scripts/audit.mjs
 !/veload-playground/scripts/audit.mjs
-/veload-playground/scripts/interaction-check.mjs
+!/veload-playground/scripts/interaction-check.mjs
 /veload-playground/scripts/workspace-check.mjs
 /veload-playground/scripts/verify-production.mjs
 

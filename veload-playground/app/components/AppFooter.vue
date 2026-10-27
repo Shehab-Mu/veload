@@ -84,6 +84,7 @@ const sections = [
 <style scoped>
 .site-footer {
   margin-top: 5rem;
+  padding-inline-end: calc(4.5rem + env(safe-area-inset-right, 0px));
   border-top: 1px solid var(--border);
   background: var(--surface-muted);
 }

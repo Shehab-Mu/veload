@@ -206,7 +206,10 @@ export async function withPage(url, evaluate, options = {}) {
     const codes = { Enter: 13, Tab: 9, Home: 36, End: 35, ArrowLeft: 37, ArrowRight: 39, Backspace: 8, " ": 32 };
     if (!codes[key]) throw new Error(`Unsupported verification key: ${key}`);
     for (const type of ["keyDown", "keyUp"]) {
-      await send("Input.dispatchKeyEvent", { type, key, code: key === " " ? "Space" : key, modifiers, windowsVirtualKeyCode: codes[key] });
+      await send("Input.dispatchKeyEvent", {
+        type, key, code: key === " " ? "Space" : key, modifiers, windowsVirtualKeyCode: codes[key],
+        ...(key === "Enter" && type === "keyDown" ? { text: "\r", unmodifiedText: "\r" } : {}),
+      });
     }
     await settle();
   };

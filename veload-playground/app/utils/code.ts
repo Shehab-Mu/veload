@@ -45,6 +45,15 @@ export function escapeAttributeValue(value: string): string {
     .replace(/>/g, "&gt;");
 }
 
+function scriptLiteral(value: unknown): string {
+  if (typeof value === "number") {
+    return String(value);
+  }
+
+  // HTML parsers recognize closing script tags even inside JavaScript strings.
+  return JSON.stringify(value)?.replace(/</g, "\\u003C") ?? "undefined";
+}
+
 function isDifferent(value: unknown, fallback: unknown): boolean {
   if (typeof value === "number" && typeof fallback === "number") {
     return value !== fallback;
@@ -222,10 +231,7 @@ export function loaderComposition(
 
   const refs = bindings
     .map((binding) => {
-      const literal =
-        typeof binding.value === "number"
-          ? String(binding.value)
-          : JSON.stringify(binding.value);
+      const literal = scriptLiteral(binding.value);
       return `const ${binding.name} = ref(${literal});`;
     })
     .join("\n");
@@ -266,7 +272,7 @@ export function loaderTypes(
   }
 
   if (state.color !== "currentColor") {
-    lines.push(`  color: ${JSON.stringify(state.color)},`);
+    lines.push(`  color: ${scriptLiteral(state.color)},`);
   }
 
   if (state.duration !== 1000) {
@@ -278,7 +284,7 @@ export function loaderTypes(
   }
 
   if (state.label !== "Loading") {
-    lines.push(`  label: ${JSON.stringify(state.label)},`);
+    lines.push(`  label: ${scriptLiteral(state.label)},`);
   }
 
   if (state.decorative) {
@@ -337,10 +343,7 @@ export function skeletonComposition(
 
   const refs = bindings
     .map((binding) => {
-      const literal =
-        typeof binding.value === "number"
-          ? String(binding.value)
-          : JSON.stringify(binding.value);
+      const literal = scriptLiteral(binding.value);
       return `const ${binding.name} = ref(${literal});`;
     })
     .join("\n");
@@ -369,7 +372,7 @@ export function skeletonTypes(
   const propsType = `${preset.name}Props`;
   const bindings = skeletonBindings(preset, state, defaults);
   const properties = bindings.map((binding) =>
-    `  ${binding.name}: ${JSON.stringify(binding.value)},`,
+    `  ${binding.name}: ${scriptLiteral(binding.value)},`,
   );
   return [
     `import { ${preset.name}, type ${propsType} } from "veload";`,

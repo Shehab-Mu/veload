@@ -103,7 +103,7 @@ html {
 
 body {
   margin: 0;
-  min-width: 20rem;
+  min-width: 0;
   background-color: var(--page-bg);
   background-image: var(--page-bg-accent);
   background-repeat: no-repeat;
