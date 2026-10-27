@@ -1,6 +1,12 @@
 # Veload
 
+[![npm version](https://img.shields.io/npm/v/veload.svg)](https://www.npmjs.com/package/veload)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Shehab-Mu/veload/blob/main/pcakage/LICENSE)
+[![Playground](https://img.shields.io/badge/Playground-veload--playground.vercel.app-6d3ff2)](https://veload-playground.vercel.app)
+
 Accessible loading UI for Vue 3: animated loaders, skeleton placeholders, progress indicators, and loading-state components with TypeScript support.
+
+Explore interactive demos and documentation in the [Veload playground](https://veload-playground.vercel.app).
 
 ## Key features
 
@@ -24,7 +30,17 @@ npm install veload
 Import the stylesheet once in your application entry point:
 
 ```ts
+// Vite / Webpack (main.ts)
 import "veload/style.css";
+```
+
+For Nuxt, register the stylesheet in `nuxt.config.ts`:
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ["veload/style.css"],
+});
 ```
 
 ## Quick Start
@@ -35,7 +51,6 @@ Use Veload in a Vue 3 + TypeScript single-file component. This example simulates
 <script setup lang="ts">
 import { ref } from "vue";
 import { VLoading, useLoading } from "veload";
-import "veload/style.css";
 
 const { isLoading, execute } = useLoading();
 const message = ref("Not loaded yet");
@@ -131,8 +146,8 @@ Veload components can render with Vue SSR and Nuxt; they do not require a client
 
 Explore the components and examples in the [Veload playground](https://veload-playground.vercel.app). Browse the [installation guide](https://veload-playground.vercel.app/docs/installation), [API guide](https://veload-playground.vercel.app/docs/api), and [accessibility guide](https://veload-playground.vercel.app/docs/accessibility).
 
-The source repository is [Shehab-Mo/veload](https://github.com/Shehab-Mo/veload).
+The source repository is [Shehab-Mu/veload](https://github.com/Shehab-Mu/veload).
 
 ## License
 
-[MIT](https://github.com/Shehab-Mo/veload/blob/main/pcakage/LICENSE)
+[MIT](https://github.com/Shehab-Mu/veload/blob/main/pcakage/LICENSE)

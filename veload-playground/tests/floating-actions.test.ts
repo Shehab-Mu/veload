@@ -15,7 +15,7 @@ describe("floating actions", () => {
     setScrollY(0);
     const wrapper = mount(FloatingActions);
 
-    expect(wrapper.get('a[href="https://github.com/Shehab-Mo/veload"]').attributes("aria-label")).toBe(
+    expect(wrapper.get('a[href="https://github.com/Shehab-Mu/veload"]').attributes("aria-label")).toBe(
       "Star Veload on GitHub",
     );
     expect(wrapper.get('a[href="https://www.npmjs.com/package/veload"]').attributes("aria-label")).toBe(

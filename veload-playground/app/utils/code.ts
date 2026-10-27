@@ -1,4 +1,4 @@
-﻿import type { LoaderMeta, SkeletonPresetMeta } from "../data/catalog";
+import type { LoaderMeta, SkeletonPresetMeta } from "../data/catalog";
 import { skeletonPresetPropNames } from "../data/component-props";
 
 /**
@@ -394,9 +394,6 @@ export default defineNuxtConfig({
   css: ["veload/style.css"],
 });
 
-// Vite — main.ts
-import "veload/style.css";
-
-// Vue CLI / plain webpack — main.ts
+// Vite / Webpack — main.ts
 import "veload/style.css";`;
 }

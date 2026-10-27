@@ -72,7 +72,7 @@ const sections = [
       </p>
       <a
         class="site-footer__link"
-        href="https://github.com/Shehab-Mo/veload"
+        href="https://github.com/Shehab-Mu/veload"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Veload on GitHub (opens in a new tab)"

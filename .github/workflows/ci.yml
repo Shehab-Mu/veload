@@ -25,6 +25,9 @@ jobs:
       - name: Check library types
         working-directory: pcakage
         run: npm run typecheck
+      - name: Test library
+        working-directory: pcakage
+        run: npm test
       - name: Check packed consumer package
         working-directory: pcakage
         run: npm run check:consumer
@@ -37,6 +40,9 @@ jobs:
       - name: Test playground
         working-directory: veload-playground
         run: npm test
+      - name: Build playground
+        working-directory: veload-playground
+        run: npm run build
       - name: Verify social image generation
         working-directory: veload-playground
         run: npm run check:og-image

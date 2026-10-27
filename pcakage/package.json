@@ -24,10 +24,10 @@
   "homepage": "https://veload-playground.vercel.app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shehab-Mo/veload.git"
+    "url": "git+https://github.com/Shehab-Mu/veload.git"
   },
   "bugs": {
-    "url": "https://github.com/Shehab-Mo/veload/issues"
+    "url": "https://github.com/Shehab-Mu/veload/issues"
   },
   "publishConfig": {
     "access": "public"

@@ -45,7 +45,7 @@ const componentSections = computed(() => [
     id: "vloader",
     name: "VLoader",
     summary:
-      "The generic loader. The variant prop selects one of the 37 treatments and every named loader is a thin wrapper around it.",
+      "The generic loader. The variant prop selects one of the 36 treatments and every named loader is a thin wrapper around it.",
     props: buildGenericLoaderPropDocs(),
     slots: [],
     component: VLoader,
