@@ -1,11 +1,6 @@
 import type { CodeTab } from "~/types/code";
 
-/**
- * Static code examples used by the documentation pages.
- *
- * They live outside the single file components so the Vue templates stay
- * readable and the examples can be reused and tested.
- */
+
 
 export const skeletonPrimitiveTabs: CodeTab[] = [
   {

@@ -15,8 +15,7 @@ const props = withDefaults(
 
 const activeId = ref(props.tabs[0]?.id ?? "");
 
-// The tabs are rendered more than once on some pages, so the ids have to be
-// unique per instance.
+
 const instanceId = useId();
 
 function tabId(id: string): string {

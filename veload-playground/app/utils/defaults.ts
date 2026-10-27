@@ -2,9 +2,7 @@ import type { Component } from "vue";
 import { VLoader, VPatternSkeleton } from "veload";
 import { readRuntimeProps } from "./props";
 
-/**
- * Reads the declared defaults of a component from the package itself.
- */
+
 export function runtimeDefaults(component: Component): Record<string, unknown> {
   const defaults: Record<string, unknown> = {};
 
@@ -17,22 +15,12 @@ export function runtimeDefaults(component: Component): Record<string, unknown> {
   return defaults;
 }
 
-/**
- * Defaults of the named loaders.
- *
- * `count` has no declared default because the amount of marks depends on the
- * treatment, so the catalog supplies it.
- */
+// `count` varies by treatment and is supplied by the catalog.
 export function loaderDefaults(defaultMarks: number): Record<string, unknown> {
   return { ...runtimeDefaults(VLoader), count: defaultMarks };
 }
 
-/**
- * Defaults of the skeleton patterns.
- *
- * `avatarSize` has no declared default because the component normalises it
- * internally, so the effective default is added here.
- */
+// The component normalises `avatarSize` internally without declaring a default.
 export function skeletonDefaults(): Record<string, unknown> {
   return { ...runtimeDefaults(VPatternSkeleton), avatarSize: 48 };
 }

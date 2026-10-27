@@ -1,25 +1,12 @@
 import type { SkeletonPattern } from "veload";
 
-/**
- * Metadata of a named skeleton preset.
- *
- * The data is free of Vue imports so it can be shared by the application and
- * by the server routes that build the sitemap.
- */
 export interface SkeletonPresetMeta {
-  /** Stable URL segment, for example `article-skeleton`. */
   slug: string;
-  /** Exported component name, for example `VArticleSkeleton`. */
   name: string;
-  /** Human readable title. */
   title: string;
-  /** Pattern rendered by the preset. */
   pattern: SkeletonPattern;
-  /** One line summary shown on cards. */
   description: string;
-  /** Short notes describing the layout. */
   highlights: string[];
-  /** Whether the preset is part of the curated homepage selection. */
   featured: boolean;
 }
 
@@ -171,7 +158,7 @@ export const linesSkeleton: SkeletonPresetMeta = {
   featured: false,
 };
 
-/** All interactive skeleton detail pages, including the generic lines pattern. */
+
 export const skeletonDetails: SkeletonPresetMeta[] = [...skeletonPresets, linesSkeleton];
 
 export function skeletonPatternPath(pattern: SkeletonPattern): string {
@@ -184,11 +171,11 @@ export const featuredSkeletonPresets: SkeletonPresetMeta[] =
   skeletonPresets.filter((entry) => entry.featured);
 
 export interface SkeletonPatternMeta {
-  /** Pattern value understood by `VPatternSkeleton`. */
+
   pattern: SkeletonPattern;
-  /** Human readable title. */
+
   title: string;
-  /** One line summary. */
+
   description: string;
 }
 

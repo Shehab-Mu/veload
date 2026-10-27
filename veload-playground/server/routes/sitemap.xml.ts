@@ -3,12 +3,7 @@ import { resolveSiteOrigin } from "#shared/utils/siteOrigin";
 import { loaders } from "#shared/data/loaders";
 import { skeletonDetails } from "#shared/data/skeletons";
 
-/**
- * Every public route of the documentation site.
- *
- * The list is derived from the shared catalogue so the sitemap can never fall
- * behind the pages that actually exist.
- */
+
 export function documentationRoutes(): Array<{
   path: string;
   changefreq: string;

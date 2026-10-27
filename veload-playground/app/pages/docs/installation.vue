@@ -17,7 +17,7 @@ import {
 usePageSeo({
   title: "Installation",
   description:
-    "Install Veload's published veload@0.1.0 package. Vue ^3.5.2 setup, stylesheet imports, TypeScript examples and Nuxt SSR guidance.",
+    "Install Veload's published veload@0.1.1 package. Vue ^3.5.2 setup, stylesheet imports, TypeScript examples and Nuxt SSR guidance.",
   path: "/docs/installation",
 });
 </script>
@@ -35,7 +35,7 @@ usePageSeo({
     <PageIntro
       eyebrow="Getting started"
       title="Installation"
-      lead="Install Veload from npm as veload@0.1.0, then import its Vue components and stylesheet in your application."
+      lead="Install Veload from npm as veload@0.1.1, then import its Vue components and stylesheet in your application."
     />
 
     <div class="docs__layout">
@@ -72,7 +72,7 @@ usePageSeo({
             target="_blank"
             rel="noreferrer"
           >
-            View veload@0.1.0 on npm
+            View veload@0.1.1 on npm
           </a>
         </p>
 

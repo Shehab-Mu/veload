@@ -43,9 +43,16 @@ __fixtures__/
 *.test.*
 *.spec.*
 
+# Keep the documentation SEO regression test in the repository.
+!/veload-playground/tests/
+!/veload-playground/tests/documentation-seo.test.ts
+!/veload-playground/tests/floating-actions.test.ts
+
 # Project-specific test runners; build and screenshot utilities stay available
 /pcakage/scripts/consumer-check.mjs
+!/pcakage/scripts/consumer-check.mjs
 /veload-playground/scripts/audit.mjs
+!/veload-playground/scripts/audit.mjs
 /veload-playground/scripts/interaction-check.mjs
 /veload-playground/scripts/workspace-check.mjs
 /veload-playground/scripts/verify-production.mjs

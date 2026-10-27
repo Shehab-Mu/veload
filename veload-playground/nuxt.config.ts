@@ -1,20 +1,12 @@
 import { defineNuxtConfig } from "nuxt/config";
 
-/**
- * The Veload documentation site.
- *
- * The site renders on the server (Nuxt SSR) and consumes the `veload`
- * package exactly like any other Vue 3 project would: components are imported
- * from the package entry point and the stylesheet is registered through the
- * Nuxt `css` option.
- */
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   ssr: true,
   devtools: { enabled: false },
 
-  // `veload/style.css` contains the scoped styles of every component. The
-  // package ships one stylesheet, so it is registered once, globally.
+
   css: ["veload/style.css", "~/assets/css/main.css"],
 
   app: {
@@ -32,10 +24,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // Override with NUXT_PUBLIC_SITE_URL: the real public HTTP(S) origin.
-      // Head metadata, sitemap and robots share validation/normalization.
-      // The request-origin fallback is for local work, not proxy deployments.
-      siteUrl: "",
+
+      siteUrl: "https://veload-playground.vercel.app",
     },
   },
 

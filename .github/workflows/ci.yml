@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.3
+          cache: npm
+          cache-dependency-path: |
+            pcakage/package-lock.json
+            veload-playground/package-lock.json
+      - name: Install library dependencies
+        working-directory: pcakage
+        run: npm ci --include=dev
+      - name: Build library
+        working-directory: pcakage
+        run: npm run build
+      - name: Check library types
+        working-directory: pcakage
+        run: npm run typecheck
+      - name: Check packed consumer package
+        working-directory: pcakage
+        run: npm run check:consumer
+      - name: Install playground dependencies
+        working-directory: veload-playground
+        run: npm ci --include=dev
+      - name: Check playground types
+        working-directory: veload-playground
+        run: npm run typecheck
+      - name: Test playground
+        working-directory: veload-playground
+        run: npm test
+      - name: Verify social image generation
+        working-directory: veload-playground
+        run: npm run check:og-image

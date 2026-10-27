@@ -2,34 +2,29 @@ import type { LoaderVariant } from "veload";
 
 export type LoaderCategory = "Motion" | "Circular" | "Geometric" | "Utility";
 
-/**
- * Metadata of a named loader.
- *
- * The data is free of Vue imports so it can be shared by the application and
- * by the server routes that build the sitemap.
- */
+
 export interface LoaderMeta {
-  /** Stable URL segment, for example `card-flip`. */
+
   slug: string;
-  /** Exported component name, for example `VCardFlipLoader`. */
+
   name: string;
-  /** Human readable title. */
+
   title: string;
-  /** Variant handled by the underlying `VLoader` component. */
+
   variant: LoaderVariant;
-  /** Grouping used by the collection filters. */
+
   category: LoaderCategory;
-  /** One line summary shown on cards and in the collection grid. */
+
   description: string;
-  /** Short notes describing the treatment. */
+
   highlights: string[];
-  /** Number of marks the loader renders with its default `count`. */
+
   defaultMarks: number;
-  /** Whether the treatment visibly repeats one or more marks. */
+
   repeatCount: boolean;
-  /** Whether the loader renders a determinate value. */
+
   supportsValue: boolean;
-  /** Whether the loader is part of the curated homepage selection. */
+
   featured: boolean;
 }
 

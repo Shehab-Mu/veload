@@ -9,24 +9,10 @@ import type { UseLoadingReturn } from "./useLoading";
 const DEFAULT_DELAY = 200;
 
 export interface UseDelayedLoadingOptions {
-  /**
-   * Delay in milliseconds before the loading indicator becomes visible.
-   * Negative values are treated as `0`; non-finite values use the default.
-   *
-   * @default 200
-   */
+
   delay?: number;
 
-  /**
-   * Minimum time in milliseconds the loading indicator remains visible once
-   * it has appeared. This prevents a brief flash when an operation finishes
-   * just after the delay. `0` disables the minimum.
-   *
-   * The minimum is measured from the moment the indicator becomes visible,
-   * not from the moment the operation starts.
-   *
-   * @default 0
-   */
+
   minVisibleDuration?: number;
 }
 
@@ -40,15 +26,7 @@ function normalizeDuration(value: number | undefined, fallback: number): number 
   return Math.max(0, value);
 }
 
-/**
- * Tracks asynchronous operations like {@link useLoading}, but delays showing
- * the loading indicator until the work has remained pending for `delay`
- * milliseconds.
- *
- * The operation itself starts immediately. Once visible, the indicator can be
- * kept on screen for at least `minVisibleDuration` milliseconds to avoid a
- * short flash.
- */
+
 export function useDelayedLoading(
   options?: UseDelayedLoadingOptions | number,
 ): UseDelayedLoadingReturn {

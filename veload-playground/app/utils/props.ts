@@ -7,15 +7,15 @@ import type { Component } from "vue";
  * documentation never drifts from the shipped package.
  */
 export interface RuntimePropInfo {
-  /** Prop name as declared by the component. */
+
   name: string;
-  /** Whether the prop was declared as required. */
+
   required: boolean;
-  /** Whether the component declares a default value for the prop. */
+
   hasDefault: boolean;
-  /** The declared default value, when there is one. */
+
   defaultValue: unknown;
-  /** Constructor name of the declared type, when it can be determined. */
+
   runtimeType: string | null;
 }
 
@@ -93,9 +93,7 @@ export function readRuntimeProps(component: Component): RuntimePropInfo[] {
   });
 }
 
-/**
- * Formats a default value the way it is written in the documentation.
- */
+
 export function formatDefaultValue(value: unknown): string {
   if (value === undefined) {
     return "—";

@@ -6,6 +6,7 @@
       <NuxtPage />
     </main>
     <AppFooter />
+    <FloatingActions />
   </div>
 </template>
 
