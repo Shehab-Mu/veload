@@ -90,13 +90,35 @@ function run(command, args, cwd, shell = false) {
   });
 }
 
-function link(from, to) {
-  if (!existsSync(from)) {
-    return false;
+function copyPackageWithDeps(name, copied = new Set()) {
+  if (copied.has(name)) {
+    return;
   }
 
+  const from = join(projectRoot, "node_modules", ...name.split("/"));
+  if (!existsSync(from)) {
+    return;
+  }
+
+  copied.add(name);
+  const to = join(modules, ...name.split("/"));
+  mkdirSync(dirname(to), { recursive: true });
   cpSync(from, to, { recursive: true });
-  return true;
+
+  const manifestPath = join(from, "package.json");
+  if (!existsSync(manifestPath)) {
+    return;
+  }
+
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const depNames = [
+    ...Object.keys(manifest.dependencies ?? {}),
+    ...Object.keys(manifest.peerDependencies ?? {}),
+  ];
+
+  for (const dep of depNames) {
+    copyPackageWithDeps(dep, copied);
+  }
 }
 
 function findTarball(directory) {
@@ -219,20 +241,9 @@ try {
   cpSync(extracted, join(modules, "veload"), { recursive: true });
   rmSync(extracted, { recursive: true, force: true });
 
-  link(join(projectRoot, "node_modules", "vue"), join(modules, "vue"));
-  mkdirSync(join(modules, "@vue"), { recursive: true });
-
-  for (const pkg of [
-    "runtime-core",
-    "runtime-dom",
-    "reactivity",
-    "shared",
-    "server-renderer",
-  ]) {
-    link(
-      join(projectRoot, "node_modules", "@vue", pkg),
-      join(modules, "@vue", pkg),
-    );
+  const copied = new Set();
+  for (const pkg of ["vue", "@vue/server-renderer"]) {
+    copyPackageWithDeps(pkg, copied);
   }
 
   const script = join(workspace, "check.mjs");
