@@ -1,7 +1,7 @@
 # Veload
 
 [![npm version](https://img.shields.io/npm/v/veload.svg)](https://www.npmjs.com/package/veload)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Shehab-Mu/veload/blob/main/pcakage/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Shehab-Mu/veload/blob/main/package/LICENSE)
 [![Playground](https://img.shields.io/badge/Playground-veload--playground.vercel.app-6d3ff2)](https://veload-playground.vercel.app)
 
 Accessible loading UI for Vue 3: animated loaders, skeleton placeholders, progress indicators, and loading-state components with TypeScript support.
@@ -150,4 +150,4 @@ The source repository is [Shehab-Mu/veload](https://github.com/Shehab-Mu/veload)
 
 ## License
 
-[MIT](https://github.com/Shehab-Mu/veload/blob/main/pcakage/LICENSE)
+[MIT](https://github.com/Shehab-Mu/veload/blob/main/package/LICENSE)

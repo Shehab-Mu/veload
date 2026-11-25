@@ -187,7 +187,7 @@ async function runPageSetup(page: typeof HomePage | typeof InstallationPage) {
 describe("honest consumer installation documentation", () => {
   it("derives the documentation version from the library manifest, not the playground or npm", () => {
     const packageManifest = JSON.parse(
-      readFileSync(new URL("../../pcakage/package.json", import.meta.url), "utf8"),
+      readFileSync(new URL("../../package/package.json", import.meta.url), "utf8"),
     ) as { version: string };
     expect(version).toBe(packageManifest.version);
     expect(version).toMatch(/^\d+\.\d+\.\d+/);
@@ -345,7 +345,7 @@ const result: Promise<number> = execute(async () => 42);
   });
 
   it("documents current package installation and production URLs", () => {
-    const manifest = JSON.parse(readFileSync(new URL("../../pcakage/package.json", import.meta.url), "utf8"));
+    const manifest = JSON.parse(readFileSync(new URL("../../package/package.json", import.meta.url), "utf8"));
     const readme = readFileSync(new URL("../../README.md", import.meta.url), "utf8");
     const nuxtConfig = readFileSync(new URL("../nuxt.config.ts", import.meta.url), "utf8");
     expect(readme).toContain(manifest.peerDependencies.vue);
@@ -357,7 +357,7 @@ const result: Promise<number> = execute(async () => 42);
     expect(manifest.repository.url).toBe("git+https://github.com/Shehab-Mu/veload.git");
     expect(manifest.bugs.url).toBe("https://github.com/Shehab-Mu/veload/issues");
     expect(readme).toContain("https://github.com/Shehab-Mu/veload");
-    expect(readme).toContain("https://github.com/Shehab-Mu/veload/blob/main/pcakage/LICENSE");
+    expect(readme).toContain("https://github.com/Shehab-Mu/veload/blob/main/package/LICENSE");
     expect(nuxtConfig).toContain('siteUrl: "https://veload-playground.vercel.app"');
     expect(manifest.exports["./style.css"]).toBe("./dist/style.css");
     expect(readme).not.toContain(".env.example");

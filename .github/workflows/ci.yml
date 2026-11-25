@@ -14,22 +14,22 @@ jobs:
           node-version: 22.22.3
           cache: npm
           cache-dependency-path: |
-            pcakage/package-lock.json
+            package/package-lock.json
             veload-playground/package-lock.json
       - name: Install library dependencies
-        working-directory: pcakage
+        working-directory: package
         run: npm ci --include=dev
       - name: Build library
-        working-directory: pcakage
+        working-directory: package
         run: npm run build
       - name: Check library types
-        working-directory: pcakage
+        working-directory: package
         run: npm run typecheck
       - name: Test library
-        working-directory: pcakage
+        working-directory: package
         run: npm test
       - name: Check packed consumer package
-        working-directory: pcakage
+        working-directory: package
         run: npm run check:consumer
       - name: Install playground dependencies
         working-directory: veload-playground

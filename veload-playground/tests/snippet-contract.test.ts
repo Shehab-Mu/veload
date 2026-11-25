@@ -90,7 +90,7 @@ describe("generated examples honor the installed package contract", () => {
 
   it("keeps every installation tab honest and free of contributor-only commands or encoding artifacts", () => {
     expect(installSnippet()).toBe("npm install veload");
-    expect(installSnippet()).not.toMatch(/--prefix|npm pack|\.tgz|\.\.\/pcakage/);
+    expect(installSnippet()).not.toMatch(/--prefix|npm pack|\.tgz|\.\.\/package/);
     expect(stylesheetSnippet()).toContain("veload/style.css");
     expect(stylesheetSnippet()).not.toContain("Ã¢â‚¬");
   });

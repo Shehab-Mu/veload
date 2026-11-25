@@ -1,3 +1,3 @@
-import packageManifest from "../../../pcakage/package.json";
+import packageManifest from "../../../package/package.json";
 
 export const version = packageManifest.version;
